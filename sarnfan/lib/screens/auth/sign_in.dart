@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
+import 'package:sarnfan/widgets/wrapper.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -55,60 +56,62 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("DEMO SIGN IN")),
-      body: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(labelText: 'Password'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        print("Send data");
-                        _sendData();
-                      }
-                    },
-                    child: const Text('Sign In'),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.go("/signup");
-                    },
-                    child: const Text(
-                      "Sign up Page",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.blue,
+      body: Wrapper(
+          child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(labelText: 'Email'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
                       ),
-                    ),
-                  )
-                ],
-              ))),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration:
+                            const InputDecoration(labelText: 'Password'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            print("Send data");
+                            _sendData();
+                          }
+                        },
+                        child: const Text('Sign In'),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          context.go("/signup");
+                        },
+                        child: const Text(
+                          "Sign up Page",
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      )
+                    ],
+                  )))),
     );
   }
 }

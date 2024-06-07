@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
+import 'package:sarnfan/widgets/bottom_nav.dart';
+import 'package:sarnfan/widgets/wrapper.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -27,8 +29,8 @@ class _TestPageState extends State<TestPage> {
     final appProvider = Provider.of<AppProvider>(context);
 
     return Scaffold(
+      bottomNavigationBar: const BottomNav(path: "/help"),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text("Who am I"),
           Text(appProvider.username ?? ""),
