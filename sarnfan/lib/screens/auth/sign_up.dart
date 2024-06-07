@@ -105,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       context.go("/signin");
                     },
                     child: const Text(
-                      "Sing in Page",
+                      "Sign in Page",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.blue,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
 
 class TestPage extends StatefulWidget {
@@ -11,35 +12,29 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  late String username = "";
-
   @override
   void initState() {
-    _fetchUsername();
     super.initState();
+    _initProvider();
   }
 
-  Future<void> _fetchUsername() async {
-    try {
-      Response response = await ApiService.get("/verify/getuser");
-      setState(() {
-        username = response.body;
-      });
-    } catch (e) {
-      print(e);
-    }
+  Future<void> _initProvider() async {
+    await Provider.of<AppProvider>(context, listen: false).init();
   }
 
   @override
   Widget build(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context);
+
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text("Who am I"),
-          Text(username),
+          Text(appProvider.username ?? ""),
           ElevatedButton(
               onPressed: () =>
-                  {ApiService.deleteToken(), context.go("/signup")},
+                  {ApiService.deleteToken(), context.go("/signin")},
               child: const Text("Logout"))
         ],
       ),

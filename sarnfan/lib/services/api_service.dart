@@ -12,6 +12,11 @@ class ApiService {
     return await _storage.read(key: 'auth_token');
   }
 
+  static Future<bool> checkToken() async {
+    final token = await _getToken();
+    return token != null && token.isNotEmpty;
+  }
+
   static Future<void> setToken(String token) async {
     await _storage.write(key: 'auth_token', value: token);
   }

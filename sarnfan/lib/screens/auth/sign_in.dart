@@ -1,7 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
 
 class SignInPage extends StatefulWidget {
@@ -37,6 +38,7 @@ class _SignInPageState extends State<SignInPage> {
         final String? token = responseData['token'];
         ApiService.setToken(token ?? "");
         if (!mounted) return;
+        Provider.of<AppProvider>(context, listen: false).init();
         context.go("/test");
       } else {
         print('Status data: ${response.statusCode}');
@@ -98,7 +100,7 @@ class _SignInPageState extends State<SignInPage> {
                       context.go("/signup");
                     },
                     child: const Text(
-                      "Sing up Page",
+                      "Sign up Page",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.blue,

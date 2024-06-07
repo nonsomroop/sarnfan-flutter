@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/routers/router.dart';
 
 Future<void> main() async {
@@ -12,8 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: router,
-    );
+    return MultiProvider(
+        providers: [ChangeNotifierProvider(create: (context) => AppProvider()..init())],
+        child: MaterialApp.router(
+          routerConfig: router,
+        ));
   }
 }
