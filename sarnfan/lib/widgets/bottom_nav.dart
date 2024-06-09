@@ -67,7 +67,7 @@ class BottomNav extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: BottomNavigationBar(
-        backgroundColor: AppColors.white,
+        // backgroundColor: AppColors.,
         items: paths.map((NavItem item) {
           return BottomNavigationBarItem(
             icon: item.icon,
@@ -75,8 +75,8 @@ class BottomNav extends StatelessWidget {
           );
         }).toList(),
         currentIndex: whichIndex(),
-        unselectedItemColor: AppColors.grey,
-        selectedItemColor: AppColors.grey,
+        // unselectedItemColor: AppColors.grey,
+        // selectedItemColor: AppColors.grey,
         showUnselectedLabels: true,
         onTap: onChangeRoute,
         type: BottomNavigationBarType.fixed,

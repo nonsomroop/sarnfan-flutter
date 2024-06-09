@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
+import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/wrapper.dart';
 
 class SignInPage extends StatefulWidget {
@@ -55,63 +56,101 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("DEMO SIGN IN")),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   // backgroundColor: AppColors.green,
+      //   type: BottomNavigationBarType.fixed,
+      //   items: [
+      //     BottomNavigationBarItem(
+      //         label: "FAQ", icon: Icon(Icons.question_mark_rounded)),
+      //     BottomNavigationBarItem(
+      //         label: "Home", icon: Icon(Icons.home_outlined)),
+      //     BottomNavigationBarItem(
+      //         label: "Starred", icon: Icon(Icons.star_border_rounded)),
+      //     BottomNavigationBarItem(label: "Profile", icon: Icon(Icons.person)),
+      //   ],
+      // ),
       body: Wrapper(
           child: Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(labelText: 'Email'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration:
-                            const InputDecoration(labelText: 'Password'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 40),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print("Send data");
-                            _sendData();
-                          }
-                        },
-                        child: const Text('Sign In'),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.go("/signup");
-                        },
-                        child: const Text(
-                          "Sign up Page",
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue,
+              child: Column(
+                children: [
+                  Text("Sign in",
+                      style: Theme.of(context).textTheme.headlineSmall),
+                  const Image(
+                      image: AssetImage('assets/images/logo_gradient.png'),
+                      width: 120,
+                      height: 120),
+                  Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: const InputDecoration(
+                                labelText: 'Email',
+                                hintText: "e.g. johndoe@gmal.com"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              return null;
+                            },
                           ),
-                        ),
-                      )
-                    ],
-                  )))),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: _passwordController,
+                            decoration: const InputDecoration(
+                              labelText: 'Password',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+                          ),
+                          const SizedBox(height: 40),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                print("Send data");
+                                _sendData();
+                              }
+                            },
+                            style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all<Color>(
+                                    AppColors.pri500),
+                                minimumSize: WidgetStateProperty.all<Size>(
+                                    const Size(double.infinity,50))),
+                            child: const Text('Sign In'),
+                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     context.go("/signup");
+                          //   },
+                          //   child: const Text(
+                          //     "Don't have an account? Sign up",
+                          //     style: TextStyle(
+                          //       decoration: TextDecoration.underline,
+                          //       color: Colors.blue,
+                          //     ),
+                          //   ),
+                          // ),
+                          TextButton(
+                              onPressed: () {
+                                context.go("/signup");
+                              },
+                              child: const Text(
+                                "Don't have an account? Sign up",
+                                style: TextStyle(color: AppColors.neu600),
+                              ))
+                        ],
+                      )),
+                ],
+              ))),
     );
   }
 }
