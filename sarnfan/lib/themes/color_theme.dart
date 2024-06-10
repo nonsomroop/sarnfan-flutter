@@ -8,8 +8,6 @@ class AppColors {
   static const smoke = Color(0xFFEEEEEE);
   static const white = Color(0xFFFBFBFB);
   static const grey = Color(0xFF233B3D);
-<<<<<<< Updated upstream
-=======
 
   static const pri500 = Color(0xFF68AE8C);
   static const pri600 = Color(0xFF0096B7);
@@ -34,5 +32,4 @@ class AppColors {
   static const neu700 = Color(0xFF5E5E5E);
   static const neu800 = Color(0xFF3C3C3C);
   static const neu900 = Color(0xFF262727);
->>>>>>> Stashed changes
 }
