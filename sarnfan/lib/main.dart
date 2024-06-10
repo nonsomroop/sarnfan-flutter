@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/routers/router.dart';
+import 'package:sarnfan/themes/app_theme.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -15,9 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [ChangeNotifierProvider(create: (context) => AppProvider()..init())],
+        providers: [
+          ChangeNotifierProvider(create: (context) => AppProvider()..init())
+        ],
         child: MaterialApp.router(
           routerConfig: router,
+          theme: AppTheme.appTheme,
         ));
   }
 }

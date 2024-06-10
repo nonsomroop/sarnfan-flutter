@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/faq_item.dart';
-import 'package:sarnfan/widgets/wrapper.dart';
 
 class FAQPage extends StatelessWidget {
   const FAQPage({super.key});
