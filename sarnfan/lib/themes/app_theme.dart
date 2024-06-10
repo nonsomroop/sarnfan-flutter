@@ -36,7 +36,8 @@ class AppTheme {
           fontSize: 22,
           height: 1.5,
         ),
-        centerTitle: false, titleSpacing: 30),
+        centerTitle: false,
+        titleSpacing: 30),
     // * Bottom Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.neu100,
