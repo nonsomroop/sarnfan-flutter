@@ -8,18 +8,16 @@ class WhiteSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        width: double.infinity,
-        constraints: BoxConstraints(minHeight: minHeight),
-        decoration: const BoxDecoration(
-            color: AppColors.neu100,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            )),
-        child: child,
-      ),
+    return Container(
+      width: double.infinity,
+      constraints: BoxConstraints(minHeight: minHeight),
+      decoration: const BoxDecoration(
+          color: AppColors.neu100,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
+      child: child,
     );
   }
 }

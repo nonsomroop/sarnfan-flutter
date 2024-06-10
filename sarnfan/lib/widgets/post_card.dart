@@ -23,7 +23,6 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     return Container(
       height: 180,
-      
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
