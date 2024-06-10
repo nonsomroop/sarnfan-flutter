@@ -127,6 +127,20 @@ class AppTheme {
     //         WidgetStateProperty.all<double>(0), // Remove the elevation here
     //   ),
     // ),
+// * Drop Down Menu
+    dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(filled: true, ),
+        
+        menuStyle: MenuStyle(
+          alignment: Alignment.bottomLeft,
+          backgroundColor: WidgetStateProperty.all<Color>(AppColors.neu50),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+        )),
+
 //* TextFormField
 
     inputDecorationTheme: InputDecorationTheme(

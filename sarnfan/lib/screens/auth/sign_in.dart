@@ -124,7 +124,7 @@ class _SignInPageState extends State<SignInPage> {
                                 backgroundColor: WidgetStateProperty.all<Color>(
                                     AppColors.pri500),
                                 minimumSize: WidgetStateProperty.all<Size>(
-                                    const Size(double.infinity,50))),
+                                    const Size(double.infinity, 50))),
                             child: const Text('Sign In'),
                           ),
                           // GestureDetector(
