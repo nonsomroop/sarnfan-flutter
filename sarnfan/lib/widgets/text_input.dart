@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 
-class TextInput extends StatefulWidget {
+class CustomTextInput extends StatefulWidget {
   final String title;
   final String placeholder;
+  final Color titleColor;
 
-  const TextInput({super.key, required this.title, required this.placeholder});
+  const CustomTextInput({
+    super.key,
+    required this.title,
+    required this.placeholder,
+    required this.titleColor,
+    // this.
+  });
 
   @override
-  State<TextInput> createState() => _TextInputState();
+  State<CustomTextInput> createState() => _CustomTextInputState();
 }
 
-class _TextInputState extends State<TextInput> {
+class _CustomTextInputState extends State<CustomTextInput> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -20,7 +27,7 @@ class _TextInputState extends State<TextInput> {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColors.neu50),
+            ?.copyWith(color: widget.titleColor),
       ),
       TextFormField(
         decoration: InputDecoration(

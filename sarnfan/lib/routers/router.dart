@@ -5,6 +5,7 @@ import 'package:sarnfan/screens/auth/sign_in.dart';
 import 'package:sarnfan/screens/auth/sign_up.dart';
 import 'package:sarnfan/screens/faq.dart';
 import 'package:sarnfan/screens/home.dart';
+import 'package:sarnfan/screens/post/create_post.dart';
 import 'package:sarnfan/screens/post/my_post_detail.dart';
 import 'package:sarnfan/screens/post/post_detail.dart';
 import 'package:sarnfan/screens/profile/edit_profile.dart';
@@ -32,6 +33,9 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(path: "/help", builder: (context, state) => const TestPage()),
   GoRoute(path: "/faq", builder: (context, state) => const FAQPage()),
   GoRoute(path: "/star", builder: (context, state) => const TestPage()),
+  GoRoute(
+      path: "/create-post",
+      builder: (context, state) => const CreatePostPage()),
   GoRoute(
       path: "/my-post-detail",
       builder: (context, state) => const MyPostDetailPage()),

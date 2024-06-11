@@ -62,9 +62,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
-                              child: const TextInput(
+                              child: const CustomTextInput(
                                 title: "Display Name",
                                 placeholder: "placeholder",
+                                titleColor: AppColors.neu50,
                               ),
                             )
                           ],

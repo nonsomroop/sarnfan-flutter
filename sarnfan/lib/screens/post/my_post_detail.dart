@@ -135,9 +135,11 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top:30.0, bottom: 20),
+                              padding:
+                                  const EdgeInsets.only(top: 30.0, bottom: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Expanded(
                                     child: ElevatedButton(
