@@ -68,9 +68,7 @@ class AppTheme {
           color: AppColors.neu50,
         ),
       ),
-      // fixedSize: WidgetStateProperty.all<Size>(
-      //   const Size.fromHeight(50),
-      // ),
+
       elevation:
           WidgetStateProperty.all<double>(0), // Remove the elevation here
     )),
@@ -99,38 +97,26 @@ class AppTheme {
       elevation:
           WidgetStateProperty.all<double>(0), // Remove the elevation here
     )),
-    // outlinedButtonTheme: OutlinedButtonThemeData(
-    //   style: ButtonStyle(
-    //     backgroundColor: WidgetStateProperty.all<Color>(AppColors.white),
-    //     foregroundColor: WidgetStateProperty.all<Color>(
-    //       AppColors.darkGrey,
-    //     ),
-    //     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-    //       RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.circular(10),
-    //         side: const BorderSide(
-    //           // Add this line to set border
-    //           color: AppColors.lightGrey, // Set the color of the border
-    //           width: 1, // Set the width of the border
-    //         ),
-    //       ),
-    //     ),
-    //     textStyle: WidgetStateProperty.all<TextStyle>(
-    //       const TextStyle(
-    //         fontWeight: FontWeight.w500,
-    //         fontSize: 18,
-    //         color: AppColors.darkGrey,
-    //       ),
-    //     ),
-    //     fixedSize: WidgetStateProperty.all<Size>(const Size.fromHeight(50)),
-    //     elevation:
-    //         WidgetStateProperty.all<double>(0), // Remove the elevation here
-    //   ),
-    // ),
+
+// * OutlinnButton Theme
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.pri500,
+        textStyle: TextStyle(
+          fontFamily: GoogleFonts.lexend().fontFamily,
+          fontWeight: FontWeight.w600,
+          fontSize: 16,
+          color: AppColors.pri500,
+        ),
+        side: BorderSide(width: 3.0, color: AppColors.pri500),
+      ),
+    ),
+
 // * Drop Down Menu
     dropdownMenuTheme: DropdownMenuThemeData(
-        inputDecorationTheme: InputDecorationTheme(filled: true, ),
-        
+        inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+        ),
         menuStyle: MenuStyle(
           alignment: Alignment.bottomLeft,
           backgroundColor: WidgetStateProperty.all<Color>(AppColors.neu50),

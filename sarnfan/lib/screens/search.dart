@@ -56,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
                 padding: EdgeInsets.only(bottom: 10, left: 20, right: 20),
                 child: SearchField(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               WhiteSurface(
@@ -80,8 +80,8 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                       Padding(
-                          padding:
-                              EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                          padding: const EdgeInsets.only(
+                              bottom: 20, left: 20, right: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -134,7 +134,7 @@ class _SearchPageState extends State<SearchPage> {
                                             setState(() {
                                               regionValue = region;
                                             }),
-                                            print("region :" + region)
+                                            print("region :$region")
                                           }
                                       },
                                       initialSelection: "All",
@@ -148,8 +148,8 @@ class _SearchPageState extends State<SearchPage> {
                             ],
                           )),
                       Padding(
-                        padding:
-                            EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                        padding: const EdgeInsets.only(
+                            bottom: 10, left: 20, right: 20),
                         child: Text(
                           "Search Results",
                           textAlign: TextAlign.start,

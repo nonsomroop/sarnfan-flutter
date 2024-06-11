@@ -23,7 +23,8 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     return Container(
       height: 180,
-      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
           color: AppColors.neu50, borderRadius: BorderRadius.circular(30)),
@@ -63,16 +64,22 @@ class _PostCardState extends State<PostCard> {
                     ),
               ),
               const SizedBox(height: 5),
-              Wrap(
-                children: [
-                  Tag(
-                    text: widget.tags[0],
-                  ),
-                  Tag(
-                    text: widget.tags[1],
-                  ),
-                ],
-              )
+              Row(
+                  children: widget.tags.map((tag) {
+                return Flexible(
+                    child: Tag(
+                  text: tag,
+                ));
+              }).toList()
+
+                  // Tag(
+                  //   text: widget.tags[0],
+                  // ),
+                  // Tag(
+                  //   text: widget.tags[1],
+                  // ),
+
+                  )
             ],
           ),
         )
