@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(
-                height:70,
+                height: 70,
               )
             ]),
             WhiteSurface(
@@ -107,41 +107,33 @@ class _HomePageState extends State<HomePage> {
                               title:
                                   "Need improvement for playground (painting)",
                               content:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem ",
                               date: "07:00, 24 Jan 2024",
-                              tags: ["school", "volunteer", "northern"],
+                              tags: ["volunteer", "northern"],
                             ),
                             PostCard(
                               title:
                                   "Need improvement for playground (painting)",
                               content:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem ",
                               date: "07:00, 24 Jan 2024",
-                              tags: ["school", "volunteer", "northern"],
+                              tags: ["volunteer", "northern"],
                             ),
                             PostCard(
                               title:
                                   "Need improvement for playground (painting)",
                               content:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem ",
                               date: "07:00, 24 Jan 2024",
-                              tags: ["school", "volunteer", "northern"],
+                              tags: ["volunteer", "northern"],
                             ),
                             PostCard(
                               title:
                                   "Need improvement for playground (painting)",
                               content:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem ",
                               date: "07:00, 24 Jan 2024",
-                              tags: ["school", "volunteer", "northern"],
-                            ),
-                            PostCard(
-                              title:
-                                  "Need improvement for playground (painting)",
-                              content:
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-                              date: "07:00, 24 Jan 2024",
-                              tags: ["school", "volunteer", "northern"],
+                              tags: ["volunteer", "northern"],
                             ),
                           ],
                         ),

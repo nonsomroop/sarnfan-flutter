@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sarnfan/themes/color_theme.dart';
 
 class NavItem {
   Widget icon;
@@ -24,25 +23,25 @@ class BottomNav extends StatelessWidget {
     final paths = [
       NavItem(
         icon: const Icon(Icons.info),
-        label: 'Help',
-        path: "/help",
+        label: 'FAQ',
+        path: "/faq",
       ),
       NavItem(
         icon: const Icon(Icons.home),
         label: 'Home',
-        path: "/",
+        path: "/home",
         isGo: true,
       ),
       NavItem(
         icon: const Icon(Icons.star),
-        label: 'Star',
-        path: "/star",
+        label: 'Starred',
+        path: "/starred",
         isGo: true,
       ),
       NavItem(
         icon: const Icon(Icons.face),
         label: 'Profile',
-        path: "/profile",
+        path: "/my-profile",
         isGo: true,
       ),
     ];
