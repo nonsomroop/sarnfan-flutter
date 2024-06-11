@@ -41,12 +41,42 @@ class ProfileCard extends StatelessWidget {
                     "John Doe",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Text("johndoe@gmail.com",
-                      style: Theme.of(context).textTheme.bodySmall),
-                  Text("+66231231",
-                      style: Theme.of(context).textTheme.bodySmall),
-                  Text("johndoe23",
-                      style: Theme.of(context).textTheme.bodySmall)
+                  Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        const Icon(
+                          Icons.mail_outline_rounded,
+                          color: AppColors.neu900,
+                          size: 20,
+                        ),
+                        Text("johndoe@gmail.com",
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ]),
+                  Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        const Icon(
+                          Icons.phone_outlined,
+                          color: AppColors.neu900,
+                          size: 20,
+                        ),
+                        Text("098232324",
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ]),
+                  Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        const Icon(
+                          Icons.person_outline_rounded,
+                          color: AppColors.neu900,
+                          size: 20,
+                        ),
+                        Text("joghndoe23",
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ]),
                 ],
               ),
               IconButton(

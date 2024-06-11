@@ -84,18 +84,48 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                "johndl.com",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              Text(
-                                "+668123456",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              Text(
-                                "johndoe97",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              )
+                              Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 5,
+                                  children: [
+                                    const Icon(
+                                      Icons.mail_outline_rounded,
+                                      color: AppColors.neu900,
+                                      size: 20,
+                                    ),
+                                    Text("johndoe@gmail.com",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge),
+                                  ]),
+                              Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 5,
+                                  children: [
+                                    const Icon(
+                                      Icons.phone_outlined,
+                                      color: AppColors.neu900,
+                                      size: 20,
+                                    ),
+                                    Text("098232324",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge),
+                                  ]),
+                              Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 5,
+                                  children: [
+                                    const Icon(
+                                      Icons.person_outline_rounded,
+                                      color: AppColors.neu900,
+                                      size: 20,
+                                    ),
+                                    Text("joghndoe23",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge),
+                                  ]),
                             ],
                           ),
                         ),
