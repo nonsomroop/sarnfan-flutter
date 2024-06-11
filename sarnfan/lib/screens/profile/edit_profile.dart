@@ -15,10 +15,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leading: const Icon(
-              Icons.arrow_back_rounded,
-              color: AppColors.neu50,
-            ),
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_rounded,
+                  color: AppColors.neu50,
+                )),
             titleSpacing: 10,
             title: Text(
               "Edit Profile",
@@ -58,7 +62,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
-                              child: TextInput(
+                              child: const TextInput(
                                 title: "Display Name",
                                 placeholder: "placeholder",
                               ),

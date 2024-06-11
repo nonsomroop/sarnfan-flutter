@@ -14,8 +14,8 @@ class WhiteSurface extends StatelessWidget {
       decoration: const BoxDecoration(
           color: AppColors.neu100,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(50),
+            topRight: Radius.circular(50),
           )),
       child: child,
     );
