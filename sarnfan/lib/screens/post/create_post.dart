@@ -33,7 +33,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_rounded,
                 color: AppColors.neu50,
               )),
@@ -63,7 +63,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             WhiteSurface(

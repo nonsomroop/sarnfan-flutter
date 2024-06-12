@@ -10,6 +10,7 @@ import 'package:sarnfan/screens/post/my_post_detail.dart';
 import 'package:sarnfan/screens/post/post_detail.dart';
 import 'package:sarnfan/screens/profile/edit_profile.dart';
 import 'package:sarnfan/screens/profile/my_profile.dart';
+import 'package:sarnfan/screens/profile/other_profile.dart';
 import 'package:sarnfan/screens/search.dart';
 import 'package:sarnfan/screens/test.dart';
 
@@ -44,6 +45,8 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
       builder: (context, state) => const PostDetailPage()),
   GoRoute(
       path: "/my-profile", builder: (context, state) => const MyProfilePage()),
+  GoRoute(
+      path: "/other-profile", builder: (context, state) => const OtherProfilePage()),
   GoRoute(
       path: "/edit-profile",
       builder: (context, state) => const EditProfilePage()),
