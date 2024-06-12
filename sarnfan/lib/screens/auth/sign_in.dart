@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
+import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/wrapper.dart';
 
 class SignInPage extends StatefulWidget {
@@ -56,30 +57,21 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: BottomNavigationBar(
-      //   // backgroundColor: AppColors.green,
-      //   type: BottomNavigationBarType.fixed,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //         label: "FAQ", icon: Icon(Icons.question_mark_rounded)),
-      //     BottomNavigationBarItem(
-      //         label: "Home", icon: Icon(Icons.home_outlined)),
-      //     BottomNavigationBarItem(
-      //         label: "Starred", icon: Icon(Icons.star_border_rounded)),
-      //     BottomNavigationBarItem(label: "Profile", icon: Icon(Icons.person)),
-      //   ],
-      // ),
       body: Wrapper(
           child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Sign in",
                       style: Theme.of(context).textTheme.headlineSmall),
-                  const Image(
-                      image: AssetImage('assets/images/logo_gradient.png'),
-                      width: 120,
-                      height: 120),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 50),
+                    child: const Image(
+                        image: AssetImage('assets/images/logo_gradient.png'),
+                        width: 120,
+                        height: 120),
+                  ),
                   Form(
                       key: _formKey,
                       child: Column(
@@ -112,7 +104,7 @@ class _SignInPageState extends State<SignInPage> {
                             },
                             obscureText: true,
                           ),
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 100),
                           ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
@@ -127,18 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                                     const Size(double.infinity, 50))),
                             child: const Text('Sign In'),
                           ),
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     context.go("/signup");
-                          //   },
-                          //   child: const Text(
-                          //     "Don't have an account? Sign up",
-                          //     style: TextStyle(
-                          //       decoration: TextDecoration.underline,
-                          //       color: Colors.blue,
-                          //     ),
-                          //   ),
-                          // ),
+                          SizedBox(height: 15),
                           TextButton(
                               onPressed: () {
                                 context.go("/signup");

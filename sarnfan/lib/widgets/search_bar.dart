@@ -21,7 +21,7 @@ class _SearchFieldState extends State<SearchField> {
               .labelLarge
               ?.copyWith(color: AppColors.neu50),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         TextFormField(
           maxLines: 1,
           scrollPadding: EdgeInsets.all(20),

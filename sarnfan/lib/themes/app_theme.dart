@@ -140,7 +140,7 @@ class AppTheme {
         borderRadius: BorderRadius.circular(30.0),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(width: 2.0, color: AppColors.pri600),
+        borderSide: const BorderSide(width: 2.0, color: AppColors.pri500),
         borderRadius: BorderRadius.circular(30.0),
       ),
       errorBorder: OutlineInputBorder(
