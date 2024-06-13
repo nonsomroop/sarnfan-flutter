@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/profile_card.dart';
 import 'package:sarnfan/widgets/tag.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
@@ -24,9 +21,9 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
             clipBehavior: Clip.none,
             alignment: Alignment.topLeft,
             children: [
-              Positioned(
+              const Positioned(
                 // bottom: 300,
-                child: Container(
+                child: SizedBox(
                   height: 250,
                   child: Image(
                     image: AssetImage("assets/images/school.png"),
@@ -43,7 +40,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_rounded,
                         color: AppColors.neu50,
                       )),
@@ -51,7 +48,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
               ),
               Column(
                 children: [
-                  SizedBox(height: 200),
+                  const SizedBox(height: 200),
                   WhiteSurface(
                       minHeight: MediaQuery.of(context).size.height - 200,
                       child: Padding(
@@ -60,11 +57,11 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Wrap(
-                                  children: const [
+                                  children: [
                                     Tag(text: "saf"),
                                     Tag(text: "sfa")
                                   ],
@@ -96,15 +93,16 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 10.0),
                               child: SizedBox(
                                 child: Text(
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem "),
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 10),
+                              padding:
+                                  const EdgeInsets.only(top: 20, bottom: 10),
                               child: Text(
                                 "Location",
                                 style: Theme.of(context)
@@ -117,7 +115,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                   image: AssetImage(
                                     "assets/images/school.png",
                                   ),
@@ -126,7 +124,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                               ),
                               height: 180,
                             ),
-                            Align(
+                            const Align(
                               alignment: Alignment.center,
                               child: Padding(
                                 padding: EdgeInsets.only(top: 15, bottom: 20),
@@ -148,11 +146,11 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                                                 WidgetStateProperty.all(
                                                     AppColors.red500)),
                                         onPressed: () {},
-                                        child: Text(
+                                        child: const Text(
                                           "Remove",
                                         )),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                   Expanded(
@@ -162,7 +160,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                                                 WidgetStateProperty.all(
                                                     AppColors.sec300)),
                                         onPressed: () {},
-                                        child: Text(
+                                        child: const Text(
                                           "Remove",
                                         )),
                                   )

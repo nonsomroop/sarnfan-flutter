@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:sarnfan/models/post_tag.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/tag.dart';
 
 class PostCard extends StatefulWidget {
+  final num id;
   final String title;
   final String content;
   final String date;
-  final List<String> tags;
+  final List<PostTag> tags;
   const PostCard(
       {super.key,
+      required this.id,
       required this.title,
       required this.content,
       required this.date,
@@ -68,18 +71,9 @@ class _PostCardState extends State<PostCard> {
                   children: widget.tags.map((tag) {
                 return Flexible(
                     child: Tag(
-                  text: tag,
+                  text: tag.name,
                 ));
-              }).toList()
-
-                  // Tag(
-                  //   text: widget.tags[0],
-                  // ),
-                  // Tag(
-                  //   text: widget.tags[1],
-                  // ),
-
-                  )
+              }).toList())
             ],
           ),
         )

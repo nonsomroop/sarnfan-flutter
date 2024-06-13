@@ -19,7 +19,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(
+                icon:const  Icon(
                   Icons.arrow_back_rounded,
                   color: AppColors.neu50,
                 )),

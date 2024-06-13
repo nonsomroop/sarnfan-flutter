@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
         "username": _usernameController.text,
         "password": _passwordController.text
       };
-      final response = await ApiService.post("/signup", data);
+      final response = await ApiService.post("/auth/signup", data);
       if (response.statusCode == 201) {
         print('Data sent successfully!');
         if (!mounted) return;

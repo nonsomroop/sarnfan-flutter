@@ -24,7 +24,7 @@ class AppProvider extends ChangeNotifier {
     _isLoggedIn = await ApiService.checkToken();
     if (_isLoggedIn) {
       try {
-        Response response = await ApiService.get("/verify/getuser");
+        Response response = await ApiService.get("/user/getuser");
 
         if (response.statusCode == 200) {
           Map<String, dynamic> userData = jsonDecode(response.body);
@@ -42,5 +42,18 @@ class AppProvider extends ChangeNotifier {
         print("Error fetching user data: $e");
       }
     }
+  }
+
+  Future<void> logout() async {
+    _username = null;
+    _email = null;
+    _type = null;
+    _phone = null;
+    _social = null;
+    _location = null;
+    _isLoggedIn = false;
+
+    await ApiService.deleteToken();
+    notifyListeners();
   }
 }

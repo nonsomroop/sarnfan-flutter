@@ -19,11 +19,11 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
     path: "/",
     builder: (context, state) {
       final provider = Provider.of<AppProvider>(context);
-      // if (provider.isLoggedIn) {
-      return const FAQPage();
-      // } else {
-      //   return const SignInPage();
-      // }
+      if (provider.isLoggedIn) {
+        return const HomePage();
+      } else {
+        return const SignInPage();
+      }
     },
   ),
   GoRoute(path: "/signin", builder: (context, state) => const SignInPage()),
@@ -46,7 +46,8 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
       path: "/my-profile", builder: (context, state) => const MyProfilePage()),
   GoRoute(
-      path: "/other-profile", builder: (context, state) => const OtherProfilePage()),
+      path: "/other-profile",
+      builder: (context, state) => const OtherProfilePage()),
   GoRoute(
       path: "/edit-profile",
       builder: (context, state) => const EditProfilePage()),

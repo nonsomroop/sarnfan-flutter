@@ -10,7 +10,7 @@ class SelectTagItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 100),
+      constraints: const BoxConstraints(maxWidth: 100),
       child: Container(
           // width: 90,
           height: 35,
@@ -28,6 +28,5 @@ class SelectTagItem extends StatelessWidget {
                 ?.copyWith(color: AppColors.neu50),
           )),
     );
-    ;
   }
 }

@@ -108,7 +108,7 @@ class AppTheme {
           fontSize: 16,
           color: AppColors.pri500,
         ),
-        side: BorderSide(width: 3.0, color: AppColors.pri500),
+        side: const BorderSide(width: 3.0, color: AppColors.pri500),
       ),
     ),
 

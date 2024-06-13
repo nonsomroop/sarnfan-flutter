@@ -63,7 +63,7 @@ class BottomNav extends StatelessWidget {
       }
     }
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: BottomNavigationBar(
         // backgroundColor: AppColors.,

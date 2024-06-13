@@ -13,7 +13,7 @@ class ProfileCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: ElevatedButton(
-        style: ButtonStyle(
+        style: const ButtonStyle(
           backgroundColor: WidgetStatePropertyAll<Color>(AppColors.neu50),
           overlayColor: WidgetStatePropertyAll<Color>(AppColors.neu200),
         ),
@@ -23,7 +23,7 @@ class ProfileCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 80,
                 height: 120,
                 child: Image(
@@ -81,7 +81,7 @@ class ProfileCard extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: AppColors.neu900,
                   ))

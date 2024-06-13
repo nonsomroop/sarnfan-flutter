@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/create-post/create_post_item.dart';
 import 'package:sarnfan/widgets/create-post/select_tag_item.dart';
@@ -47,7 +46,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           WidgetStateProperty.all<Size>(const Size(110, 35)),
                       backgroundColor:
                           WidgetStateProperty.all<Color>(AppColors.pri700)),
-                  child: Text("Post")),
+                  child: const Text("Post")),
             )
           ],
           titleSpacing: 10,

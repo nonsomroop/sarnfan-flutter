@@ -8,9 +8,8 @@ class Tag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 100),
+      constraints: const BoxConstraints(maxWidth: 100),
       child: Container(
-          // width: 90,
           height: 25,
           alignment: Alignment.center,
           margin: const EdgeInsets.only(right: 5),

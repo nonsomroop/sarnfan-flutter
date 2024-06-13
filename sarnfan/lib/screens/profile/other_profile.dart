@@ -1,12 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/profile_item.dart';
-import 'package:sarnfan/widgets/wrapper.dart';
 
 class OtherProfilePage extends StatefulWidget {
   const OtherProfilePage({super.key});
@@ -30,7 +26,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
               )),
           backgroundColor: AppColors.pri500,
         ),
-        bottomNavigationBar: BottomNav(path: "/my-profile"),
+        bottomNavigationBar: const BottomNav(path: "/my-profile"),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,7 +40,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 120,
                               width: 120,
                               child: Image(
@@ -52,7 +48,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                               ),
                             ),
                             Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: Text(
                                   "John Doe",
                                   style: Theme.of(context)
@@ -72,7 +68,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                             color: AppColors.neu50,
                             borderRadius: BorderRadius.circular(30)),
                         child: Padding(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -124,29 +120,28 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                       ),
                     )
                   ]),
-              SizedBox(height: 90),
-              ProfileItem(
+              const SizedBox(height: 90),
+              const ProfileItem(
                   text: "Description",
                   icon: Icons.description_outlined,
                   path: "/my-description"),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              ProfileItem(
+              const ProfileItem(
                   text: "Location",
                   icon: Icons.location_on_outlined,
                   path: "/my-location"),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              ProfileItem(
+              const ProfileItem(
                   text: "History",
                   icon: Icons.history_rounded,
                   path: "/my-history"),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-            
             ],
           ),
         ));

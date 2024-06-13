@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/wrapper.dart';
 
 class SignInPage extends StatefulWidget {
@@ -33,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
         "email": _emailController.text,
         "password": _passwordController.text
       };
-      final response = await ApiService.post("/signin", data);
+      final response = await ApiService.post("/auth/signin", data);
       if (response.statusCode == 200) {
         print('Data sent successfully!');
         final dynamic responseData =
@@ -42,7 +41,7 @@ class _SignInPageState extends State<SignInPage> {
         ApiService.setToken(token ?? "");
         if (!mounted) return;
         Provider.of<AppProvider>(context, listen: false).init();
-        context.go("/test");
+        context.go("/");
       } else {
         print('Status data: ${response.statusCode}');
         if (response.statusCode != 201) {
@@ -65,9 +64,9 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   Text("Sign in",
                       style: Theme.of(context).textTheme.headlineSmall),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 50),
-                    child: const Image(
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 50),
+                    child: Image(
                         image: AssetImage('assets/images/logo_gradient.png'),
                         width: 120,
                         height: 120),
@@ -119,7 +118,7 @@ class _SignInPageState extends State<SignInPage> {
                                     const Size(double.infinity, 50))),
                             child: const Text('Sign In'),
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           TextButton(
                               onPressed: () {
                                 context.go("/signup");

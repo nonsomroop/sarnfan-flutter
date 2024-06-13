@@ -24,12 +24,12 @@ class _SearchFieldState extends State<SearchField> {
         const SizedBox(height: 5),
         TextFormField(
           maxLines: 1,
-          scrollPadding: EdgeInsets.all(20),
+          scrollPadding: const EdgeInsets.all(20),
           decoration: InputDecoration(
               hintText: "e.g. post title, content, etc.",
               suffixIcon: Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: IconButton(icon: Icon(Icons.search), onPressed: () {}),
+                child: IconButton(icon: const Icon(Icons.search), onPressed: () {}),
               )),
         )
       ],

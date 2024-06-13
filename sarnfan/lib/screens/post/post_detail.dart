@@ -26,7 +26,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             children: [
               Positioned(
                 // bottom: 300,
-                child: Container(
+                child: SizedBox(
                   height: 250,
                   child: Image(
                     image: AssetImage("assets/images/school.png"),
