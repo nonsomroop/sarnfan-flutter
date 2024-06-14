@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/faq_item.dart';
@@ -27,18 +28,69 @@ class FAQPage extends StatelessWidget {
               FAQItem(path: "faq/how-to-verify", text: "How to get verified?"),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           Container(
             width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
                 color: AppColors.neu50,
                 borderRadius: BorderRadius.circular(30)),
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text("Contact us"),Text("askfksapjfkasjfkalsfjsaljf")],
+
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Contact us",
+                      style: Theme.of(context).textTheme.headlineSmall),
+                  Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        const Icon(
+                          Icons.mail_outline_rounded,
+                          color: AppColors.neu900,
+                          size: 20,
+                        ),
+                        Text("sarnfan@gmail.com",
+                            style: Theme.of(context).textTheme.bodyMedium),
+                      ]),
+                  Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        const Icon(
+                          Icons.phone,
+                          color: AppColors.neu900,
+                          size: 20,
+                        ),
+                        Text("066-8754599",
+                            style: Theme.of(context).textTheme.bodyMedium),
+                      ]),
+                  Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        const Icon(
+                          Icons.person_outline_rounded,
+                          color: AppColors.neu900,
+                          size: 20,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            context.go("https://www.instagram.com/nonsomroop/");
+                          },
+                          child: Text("sarnfan.official",
+                              style: Theme.of(context).textTheme.bodyMedium),
+                        ),
+                      ]),
+                ],
               ),
             ),
+          ),
+          SizedBox(
+            height: 20,
           )
         ]),
       ),
