@@ -19,7 +19,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon:const  Icon(
+                icon: const Icon(
                   Icons.arrow_back_rounded,
                   color: AppColors.neu50,
                 )),
@@ -135,10 +135,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     )
                   ]),
-              const SizedBox(height: 90),
-              const SizedBox(
-                height: 80,
-              ),
+              const SizedBox(height: 170),
+             
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.7,

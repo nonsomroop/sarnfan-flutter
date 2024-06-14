@@ -101,6 +101,7 @@ class AppTheme {
 // * OutlinnButton Theme
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
+        
         foregroundColor: AppColors.pri500,
         textStyle: TextStyle(
           fontFamily: GoogleFonts.lexend().fontFamily,
@@ -152,7 +153,7 @@ class AppTheme {
         borderRadius: BorderRadius.circular(30.0),
       ),
       disabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(width: 2.0, color: AppColors.neu400),
+        borderSide: const BorderSide(width: 2.0, color: AppColors.neu300),
         borderRadius: BorderRadius.circular(30.0),
       ),
       fillColor: AppColors.neu50,

@@ -8,6 +8,7 @@ import 'package:sarnfan/screens/home.dart';
 import 'package:sarnfan/screens/post/create_post.dart';
 import 'package:sarnfan/screens/post/my_post_detail.dart';
 import 'package:sarnfan/screens/post/post_detail.dart';
+import 'package:sarnfan/screens/profile/edit_description.dart';
 import 'package:sarnfan/screens/profile/edit_profile.dart';
 import 'package:sarnfan/screens/profile/my_history.dart';
 import 'package:sarnfan/screens/profile/my_description.dart';
@@ -53,9 +54,12 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
       path: "/my-description",
       builder: (context, state) => const MyDescriptionPage()),
-       GoRoute(
+  GoRoute(
       path: "/other-description",
       builder: (context, state) => const OtherDescriptionPage()),
+      GoRoute(
+      path: "/edit-description",
+      builder: (context, state) => const EditDescriptionPage()),
   GoRoute(
       path: "/other-profile",
       builder: (context, state) => const OtherProfilePage()),
