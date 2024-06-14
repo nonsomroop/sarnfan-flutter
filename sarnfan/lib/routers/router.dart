@@ -9,12 +9,15 @@ import 'package:sarnfan/screens/post/create_post.dart';
 import 'package:sarnfan/screens/post/my_post_detail.dart';
 import 'package:sarnfan/screens/post/post_detail.dart';
 import 'package:sarnfan/screens/profile/edit_description.dart';
+import 'package:sarnfan/screens/profile/edit_location.dart';
 import 'package:sarnfan/screens/profile/edit_profile.dart';
 import 'package:sarnfan/screens/profile/my_history.dart';
 import 'package:sarnfan/screens/profile/my_description.dart';
+import 'package:sarnfan/screens/profile/my_location.dart';
 import 'package:sarnfan/screens/profile/my_profile.dart';
 import 'package:sarnfan/screens/profile/other_description.dart';
 import 'package:sarnfan/screens/profile/other_history.dart';
+import 'package:sarnfan/screens/profile/other_location.dart';
 import 'package:sarnfan/screens/profile/other_profile.dart';
 import 'package:sarnfan/screens/search.dart';
 import 'package:sarnfan/screens/starred.dart';
@@ -36,10 +39,9 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(path: "/signup", builder: (context, state) => const SignUpPage()),
   GoRoute(path: "/home", builder: (context, state) => const HomePage()),
   GoRoute(path: "/search", builder: (context, state) => const SearchPage()),
-  GoRoute(path: "/test", builder: (context, state) => const FAQPage()),
   GoRoute(path: "/help", builder: (context, state) => const TestPage()),
   GoRoute(path: "/faq", builder: (context, state) => const FAQPage()),
-  GoRoute(path: "/star", builder: (context, state) => const TestPage()),
+  GoRoute(path: "/starred", builder: (context, state) => const StarredPage()),
   GoRoute(
       path: "/create-post",
       builder: (context, state) => const CreatePostPage()),
@@ -57,7 +59,7 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
       path: "/other-description",
       builder: (context, state) => const OtherDescriptionPage()),
-      GoRoute(
+  GoRoute(
       path: "/edit-description",
       builder: (context, state) => const EditDescriptionPage()),
   GoRoute(
@@ -71,5 +73,13 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
       path: "/other-history",
       builder: (context, state) => const OtherHistoryPage()),
-  GoRoute(path: "/starred", builder: (context, state) => const StarredPage()),
+  GoRoute(
+      path: "/my-location",
+      builder: (context, state) => const MyLocationPage()),
+  GoRoute(
+      path: "/edit-location",
+      builder: (context, state) => const EditLocationPage()),
+  GoRoute(
+      path: "/other-location",
+      builder: (context, state) => const OtherLocationPage()),
 ]);

@@ -25,6 +25,7 @@ class BottomNav extends StatelessWidget {
         icon: const Icon(Icons.info),
         label: 'FAQ',
         path: "/faq",
+        isGo: true
       ),
       NavItem(
         icon: const Icon(Icons.home),

@@ -113,7 +113,7 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
                                         onPressed: () {},
                                         style: ButtonStyle(
                                             backgroundColor:
-                                                MaterialStateProperty.all<
+                                                WidgetStateProperty.all<
                                                     Color>(AppColors.pri500)),
                                         child: const Text(
                                           "Save",

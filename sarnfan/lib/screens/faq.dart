@@ -10,13 +10,16 @@ class FAQPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("FAQ"),
+        title: const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Text("FAQ"),
+        ),
         backgroundColor: Colors.transparent,
       ),
       bottomNavigationBar: const BottomNav(path: "/faq"),
-      body: Column(children: [
-        const Expanded(
-          child: Column(
+      body: SingleChildScrollView(
+        child: Column(children: [
+          const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               FAQItem(path: "faq/what-is-sarnfan", text: "What is SarnFan?"),
@@ -24,33 +27,21 @@ class FAQPage extends StatelessWidget {
               FAQItem(path: "faq/how-to-verify", text: "How to get verified?"),
             ],
           ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 30, bottom: 30),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: BoxDecoration(
-              // color: Colors.grey[200]
-
-              color: AppColors.neu300,
-              borderRadius: BorderRadius.circular(10),
+                color: AppColors.neu50,
+                borderRadius: BorderRadius.circular(30)),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Text("Contact us"),Text("askfksapjfkasjfkalsfjsaljf")],
+              ),
             ),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Contact Us",
-                textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: AppColors.neu900,
-                        )),
-                const Text("IGGDGAfa")
-              ],
-            ),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }
