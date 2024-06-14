@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 class MyLocationPage extends StatelessWidget {
   const MyLocationPage({super.key});
 
@@ -53,12 +57,31 @@ class MyLocationPage extends StatelessWidget {
                               ))
                         ],
                       )),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 180,
-                      color: AppColors.neu700,
+                  // Padding(
+
+                  Container(
+                    height: 300,
+                    child: FlutterMap(
+                      options: const MapOptions(
+                        initialCenter: LatLng(51.509364, -0.128928),
+                        initialZoom: 9.2,
+                      ),
+                      children: [
+                        TileLayer(
+                          urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          userAgentPackageName: 'com.example.app',
+                        ),
+                        RichAttributionWidget(
+                          attributions: [
+                            TextSourceAttribution(
+                              'OpenStreetMap contributors',
+                              onTap: () => launchUrl(Uri.parse(
+                                  'https://openstreetmap.org/copyright')),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   Padding(

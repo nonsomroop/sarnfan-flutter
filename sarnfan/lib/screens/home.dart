@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(100)),
                   child: IconButton(
                     onPressed: () {
-                      context.go("/search");
+                      context.push("/search");
                     },
                     icon: const Icon(
                       Icons.search,

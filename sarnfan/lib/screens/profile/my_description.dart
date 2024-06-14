@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
@@ -10,7 +11,6 @@ class MyDescriptionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        
           icon: const Icon(
             Icons.arrow_back,
             color: AppColors.neu50,
@@ -44,7 +44,9 @@ class MyDescriptionPage extends StatelessWidget {
                                   .titleLarge
                                   ?.copyWith(color: AppColors.pri500)),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.push("/edit-description");
+                              },
                               icon: const Icon(
                                 Icons.edit,
                                 color: AppColors.pri500,
