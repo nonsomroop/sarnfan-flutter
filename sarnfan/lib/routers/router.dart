@@ -9,10 +9,13 @@ import 'package:sarnfan/screens/post/create_post.dart';
 import 'package:sarnfan/screens/post/my_post_detail.dart';
 import 'package:sarnfan/screens/post/post_detail.dart';
 import 'package:sarnfan/screens/profile/edit_profile.dart';
+import 'package:sarnfan/screens/profile/my_history.dart';
 import 'package:sarnfan/screens/profile/my_description.dart';
 import 'package:sarnfan/screens/profile/my_profile.dart';
+import 'package:sarnfan/screens/profile/other_history.dart';
 import 'package:sarnfan/screens/profile/other_profile.dart';
 import 'package:sarnfan/screens/search.dart';
+import 'package:sarnfan/screens/starred.dart';
 import 'package:sarnfan/screens/test.dart';
 
 final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
@@ -55,4 +58,10 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
       path: "/edit-profile",
       builder: (context, state) => const EditProfilePage()),
+  GoRoute(
+      path: "/my-history", builder: (context, state) => const MyHistoryPage()),
+  GoRoute(
+      path: "/other-history",
+      builder: (context, state) => const OtherHistoryPage()),
+  GoRoute(path: "/starred", builder: (context, state) => const StarredPage()),
 ]);

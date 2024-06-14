@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 
 class ProfileItem extends StatelessWidget {
@@ -18,7 +19,9 @@ class ProfileItem extends StatelessWidget {
               backgroundColor: WidgetStateProperty.all<Color>(AppColors.neu50),
               overlayColor: WidgetStateProperty.all<Color>(AppColors.neu200),
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.go(path);
+            },
             icon: Icon(
               icon,
               color: AppColors.neu900,
