@@ -11,7 +11,6 @@ class MyHistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          padding: const EdgeInsets.only(left: 20),
           icon: const Icon(
             Icons.arrow_back,
             color: AppColors.neu50,
@@ -39,7 +38,7 @@ class MyHistoryPage extends StatelessWidget {
               ),
             ),
             WhiteSurface(
-                minHeight: MediaQuery.of(context).size.height - 80,
+                minHeight: MediaQuery.of(context).size.height - 146,
                 child: const Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Column(children: [

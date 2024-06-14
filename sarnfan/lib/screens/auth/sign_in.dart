@@ -116,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                                     AppColors.pri500),
                                 minimumSize: WidgetStateProperty.all<Size>(
                                     const Size(double.infinity, 50))),
-                            child: const Text('Sign In'),
+                            child: const Text('Sign in'),
                           ),
                           const SizedBox(height: 15),
                           TextButton(

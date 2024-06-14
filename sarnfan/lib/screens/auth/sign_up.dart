@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarnfan/services/api_service.dart';
+import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/wrapper.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -50,74 +51,130 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("DEMO SIGN UP")),
       body: Wrapper(
-          child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                        controller: _usernameController,
-                        decoration:
-                            const InputDecoration(labelText: 'Username'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your username';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(labelText: 'Email'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration:
-                            const InputDecoration(labelText: 'Password'),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 40),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print("Send data");
-                            _sendData();
-                          }
-                        },
-                        child: const Text('Sign Up'),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.go("/signin");
-                        },
-                        child: const Text(
-                          "Sign in Page",
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue,
-                          ),
+          child: SingleChildScrollView(
+        child: Padding(
+            padding:
+                const EdgeInsets.only(left: 20, right: 20, top: 40, bottom: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Register",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20, bottom: 50),
+                  child: Image(
+                      image: AssetImage('assets/images/logo_gradient.png'),
+                      width: 80,
+                      height: 80),
+                ),
+                Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: _usernameController,
+                          decoration:
+                              const InputDecoration(labelText: 'Display Name'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your username';
+                            }
+                            return null;
+                          },
                         ),
-                      )
-                    ],
-                  )))),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: const InputDecoration(labelText: 'Email'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration:
+                              const InputDecoration(labelText: 'Phone Number'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration:
+                              const InputDecoration(labelText: 'Social Media'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration:
+                              const InputDecoration(labelText: 'Password'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: const InputDecoration(
+                            labelText: 'Confirm Password',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 50),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              print("Send data");
+                              _sendData();
+                            }
+                          },
+                          style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all<Color>(
+                                  AppColors.pri500),
+                              minimumSize: WidgetStateProperty.all<Size>(
+                                  const Size(double.infinity, 50))),
+                          child: const Text('Sign up'),
+                        ),
+                        const SizedBox(height: 15),
+                        TextButton(
+                            onPressed: () {
+                              context.go("/signin");
+                            },
+                            child: const Text(
+                              "Don't have an account? Sign in",
+                              style: TextStyle(color: AppColors.neu600),
+                            ))
+                      ],
+                    )),
+              ],
+            )),
+      )),
     );
   }
 }

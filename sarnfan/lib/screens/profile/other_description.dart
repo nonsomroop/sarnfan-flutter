@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
-class MyDescriptionPage extends StatelessWidget {
-  const MyDescriptionPage({super.key});
+class OtherDescriptionPage extends StatelessWidget {
+  const OtherDescriptionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        
+          padding: const EdgeInsets.only(left: 20),
           icon: const Icon(
             Icons.arrow_back,
             color: AppColors.neu50,
@@ -31,6 +31,7 @@ class MyDescriptionPage extends StatelessWidget {
             WhiteSurface(
               minHeight: MediaQuery.of(context).size.height - 80,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                       padding: const EdgeInsets.only(
@@ -43,12 +44,6 @@ class MyDescriptionPage extends StatelessWidget {
                                   .textTheme
                                   .titleLarge
                                   ?.copyWith(color: AppColors.pri500)),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.edit,
-                                color: AppColors.pri500,
-                              ))
                         ],
                       )),
                   Padding(
