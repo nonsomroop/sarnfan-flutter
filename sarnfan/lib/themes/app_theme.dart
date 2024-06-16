@@ -101,7 +101,6 @@ class AppTheme {
 // * OutlinnButton Theme
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        
         foregroundColor: AppColors.pri500,
         textStyle: TextStyle(
           fontFamily: GoogleFonts.lexend().fontFamily,
@@ -127,6 +126,9 @@ class AppTheme {
             ),
           ),
         )),
+// *Cicular Loader
+    progressIndicatorTheme:
+        ProgressIndicatorThemeData(circularTrackColor:AppColors.neu300, color: AppColors.pri500),
 
 //* TextFormField
 
