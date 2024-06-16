@@ -33,7 +33,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   color: AppColors.pri500,
                 ),
                 onPressed: () {
-                  context.go("/edit-profile");
+                  context.push("/edit-profile");
                 },
               ),
             ),
