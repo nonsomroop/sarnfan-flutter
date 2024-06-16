@@ -118,36 +118,36 @@ class _EditLocationPageState extends State<EditLocationPage> {
                                   ?.copyWith(color: AppColors.pri500)),
                         ],
                       )),
-                  TextFormField(
-                    maxLines: 1,
-                    controller: _searchController,
-                    scrollPadding: const EdgeInsets.all(20),
-                    decoration: InputDecoration(
-                        hintText: "e.g. post title, content, etc.",
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: IconButton(
-                              icon: const Icon(Icons.search),
-                              onPressed: () async {
-                                final query = _searchController.text;
-                                print("query  " + query);
-
-                                if (query.isNotEmpty) {
-                                  final location = await searchLocation(query);
-                                  print(location);
-
-                                  if (location != null) {
-                                    setState(() {
-                                      newMarker = markPin(location);
-                                      _mapController.move(location, 15);
-                                    });
-                                  }
-                                  print(location);
-
-                                  // print(_searchController.text);
-                                }
-                              }),
-                        )),
+                  Padding(
+                    padding: const EdgeInsets.only(top:10.0, bottom:20),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextFormField(
+                        
+                        maxLines: 1,
+                        controller: _searchController,
+                        scrollPadding: const EdgeInsets.all(20),
+                        decoration: InputDecoration(
+                            hintText: "e.g. road, city, country",
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: IconButton(
+                                  icon: const Icon(Icons.search),
+                                  onPressed: () async {
+                                    final query = _searchController.text;
+                                    if (query.isNotEmpty) {
+                                      final location = await searchLocation(query);
+                                      if (location != null) {
+                                        setState(() {
+                                          newMarker = markPin(location);
+                                          _mapController.move(location,10);
+                                        });
+                                      }
+                                    }
+                                  }),
+                            )),
+                      ),
+                    ),
                   ),
                   Container(
                     height: 300,
@@ -167,6 +167,7 @@ class _EditLocationPageState extends State<EditLocationPage> {
                                 newMarker = markPin(latlng);
                               }),
                             ),
+                            mapController: _mapController,
                             children: [
                               TileLayer(
                                 urlTemplate:
@@ -178,7 +179,6 @@ class _EditLocationPageState extends State<EditLocationPage> {
                                 if (newMarker != null) newMarker!
                               ])
                             ],
-                            mapController: _mapController,
                           ),
                   ),
                   Padding(
