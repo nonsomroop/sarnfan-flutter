@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
@@ -15,6 +16,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _socialController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmController = TextEditingController();
 
@@ -22,6 +25,8 @@ class _SignUpPageState extends State<SignUpPage> {
   void dispose() {
     _usernameController.dispose();
     _emailController.dispose();
+    _phoneController.dispose();
+    _socialController.dispose();
     _passwordController.dispose();
     _confirmController.dispose();
     super.dispose();
@@ -30,8 +35,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> _sendData() async {
     try {
       final data = {
-        "email": _emailController.text,
         "username": _usernameController.text,
+        "email": _emailController.text,
+        "phone": _phoneController.text,
+        "social": _socialController.text,
         "password": _passwordController.text
       };
       final response = await ApiService.post("/auth/signup", data);
@@ -97,24 +104,31 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          controller: _emailController,
+                          controller: _phoneController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
                           decoration:
                               const InputDecoration(labelText: 'Phone Number'),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
+                              return 'Please enter your phone number';
+                            } else if (value.length > 10) {
+                              return 'Please enter a valid phone number';
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          controller: _emailController,
+                          controller: _socialController,
                           decoration:
                               const InputDecoration(labelText: 'Social Media'),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
+                              return 'Please enter your social media';
                             }
                             return null;
                           },
@@ -134,13 +148,16 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          controller: _passwordController,
+                          controller: _confirmController,
                           decoration: const InputDecoration(
                             labelText: 'Confirm Password',
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.isEmpty ) {
                               return 'Please enter your password';
+                            }
+                            else if (value != _passwordController.text) {
+                              return 'Passwords do not match';
                             }
                             return null;
                           },

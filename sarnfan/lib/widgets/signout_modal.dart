@@ -16,7 +16,7 @@ class SignoutModal extends StatelessWidget {
       content: const Text("Are you sure you want to sign out?"),
       actions: [
         Container(
-          width: 130,
+          width: 115,
           child: ElevatedButton(
               onPressed: () async {
                 Navigator.of(context).pop();
@@ -29,7 +29,7 @@ class SignoutModal extends StatelessWidget {
                   style: TextStyle(color: AppColors.neu900))),
         ),
         Container(
-          width: 130,
+          width: 115,
           child: ElevatedButton(
               onPressed: () async {
                 await Provider.of<AppProvider>(context, listen: false).logout();

@@ -82,69 +82,69 @@ class _HomePageState extends State<HomePage> {
               minHeight: MediaQuery.of(context).size.height - 159,
               child: Stack(
                 clipBehavior: Clip.none,
+                alignment: Alignment.topCenter,
                 children: [
                   Positioned(
-                    left: MediaQuery.of(context).size.width / 2 - 50,
                     top: -50,
-                    child: SizedBox(
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        alignment: WrapAlignment.center,
-                        spacing: 10,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/school.png"),
-                                fit: BoxFit.cover,
-                              ),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/school.png"),
+                              fit: BoxFit.cover,
                             ),
-                            width: 100,
-                            height: 100,
-                            alignment: Alignment.center,
                           ),
-                          Text(appProvider.username ?? "",
+                          width: 100,
+                          height: 100,
+                          alignment: Alignment.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top:10.0),
+                          child: Text(appProvider.username ?? "",
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.titleMedium),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 90, left: 20),
-                          child: Text(
-                            'Recent Posts',
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                  color: AppColors.neu900,
-                                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:20.0),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 90, left: 20),
+                            child: Text(
+                              'Recent Posts',
+                              textAlign: TextAlign.start,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .copyWith(
+                                    color: AppColors.neu900,
+                                  ),
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Column(
-                          children: postList.map((post) {
-                            return PostCard(
-                              id: post.id,
-                              title: post.title,
-                              content: post.content,
-                              date: post.createdDate,
-                              tags: post.tags,
-                            );
-                          }).toList(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Column(
+                            children: postList.map((post) {
+                              return PostCard(
+                                id: post.id,
+                                title: post.title,
+                                content: post.content,
+                                date: post.createdDate,
+                                tags: post.tags,
+                              );
+                            }).toList(),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
