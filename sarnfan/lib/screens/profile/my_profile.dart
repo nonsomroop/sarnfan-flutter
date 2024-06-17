@@ -67,17 +67,17 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   appProvider.username ?? "",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headlineMedium
+                                      .headlineSmall
                                       ?.copyWith(color: AppColors.neu50),
                                 ))
                           ],
                         )),
                     Positioned(
-                      bottom: -75,
+                      bottom: -100,
                       child: Container(
                         // width: double.infinity,
                         width: MediaQuery.of(context).size.width * 0.7,
-                        height: 130,
+                        height: 150,
                         decoration: BoxDecoration(
                             color: AppColors.neu50,
                             borderRadius: BorderRadius.circular(30)),
@@ -86,6 +86,32 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  spacing: 5,
+                                  children: [
+                                    Icon(
+                                      appProvider.type == "ind"
+                                          ? Icons.person_2_rounded
+                                          : appProvider.type == "org"
+                                              ? Icons.groups_2_rounded
+                                              : appProvider.type == "school"
+                                                  ? Icons.school_rounded
+                                                  : Icons.question_mark_rounded,
+                                      color: AppColors.pri600,
+                                      size: 20,
+                                    ),
+                                    Text(appProvider.type == "ind"
+                                          ? "Individual"
+                                          : appProvider.type == "org"
+                                              ? "Organization"
+                                              : appProvider.type == "school"
+                                                  ? "School"
+                                                  : "",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge?.copyWith(color:AppColors.pri600)),
+                                  ]),
                               Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   spacing: 5,
@@ -134,7 +160,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       ),
                     )
                   ]),
-              const SizedBox(height: 90),
+              const SizedBox(height: 120),
               const ProfileItem(
                   text: "Description",
                   icon: Icons.description_outlined,

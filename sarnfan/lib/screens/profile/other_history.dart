@@ -29,13 +29,24 @@ class OtherHistoryPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: 20.0, bottom: 30, left: 20, right: 20),
-              child: Text(
-                "Post History",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: AppColors.neu50),
-              ),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                const Padding(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: Icon(
+                    Icons.history,
+                    color: AppColors.neu50,
+                    size: 30,
+                  ),
+                ),
+                Text(
+                  "Post History",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: AppColors.neu50),
+                ),
+              ]),
             ),
             WhiteSurface(
                 minHeight: MediaQuery.of(context).size.height - 146,

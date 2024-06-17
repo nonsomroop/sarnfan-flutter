@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/post_card.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class MyHistoryPage extends StatelessWidget {
@@ -29,26 +28,30 @@ class MyHistoryPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: 20.0, bottom: 30, left: 20, right: 20),
-              child: Text(
-                "Post History",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: AppColors.neu50),
-              ),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                const Padding(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: Icon(
+                    Icons.history,
+                    color: AppColors.neu50,
+                    size: 30,
+                  ),
+                ),
+                Text(
+                  "Post History",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: AppColors.neu50),
+                ),
+              ]),
             ),
             WhiteSurface(
                 minHeight: MediaQuery.of(context).size.height - 146,
                 child: const Padding(
                   padding: EdgeInsets.all(20.0),
-                  child: Column(children: [
-                    PostCard(
-                        id: 123,
-                        title: "hello",
-                        content: "asfl;asfjaslfj;afk;afja",
-                        date: "safaf",
-                        tags: [])
-                  ]),
+                  child: Column(children: []),
                 ))
           ],
         ),

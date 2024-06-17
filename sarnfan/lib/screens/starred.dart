@@ -19,16 +19,29 @@ class StarredPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: 50.0, bottom: 40, left: 20, right: 20),
-              child: Text(
-                "Starred Posts",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: AppColors.neu50),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Icon(
+                      Icons.star_rate_rounded,
+                      color: AppColors.neu50,
+                      size: 35,
+                    ),
+                  ),
+                  Text(
+                    "Starred Posts",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(color: AppColors.neu50),
+                  ),
+                ],
               ),
             ),
             WhiteSurface(
-                minHeight: MediaQuery.of(context).size.height -185,
+                minHeight: MediaQuery.of(context).size.height - 185,
                 child: const Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Column(children: [

@@ -32,16 +32,33 @@ class _PostCardState extends State<PostCard> {
       decoration: BoxDecoration(
           color: AppColors.neu50, borderRadius: BorderRadius.circular(30)),
       child: Row(children: [
-        Container(
-          width: 120,
-          height: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            image: const DecorationImage(
-              image: AssetImage("assets/images/school.png"),
-              fit: BoxFit.cover,
+        Stack(
+          children: [
+            Container(
+              width: 120,
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/school.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              bottom: 10,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                      color: AppColors.neu50,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                      )),
+                ),
+              ),
+            )
+          ],
         ),
         const SizedBox(width: 20),
         Expanded(
