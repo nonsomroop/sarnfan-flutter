@@ -20,7 +20,7 @@ class ProfileItem extends StatelessWidget {
               overlayColor: WidgetStateProperty.all<Color>(AppColors.neu200),
             ),
             onPressed: () {
-              context.push(path);
+              context.go(path);
             },
             icon: Icon(
               icon,

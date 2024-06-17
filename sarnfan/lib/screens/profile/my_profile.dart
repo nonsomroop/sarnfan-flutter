@@ -6,6 +6,7 @@ import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/profile_item.dart';
+import 'package:sarnfan/widgets/signout_modal.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
@@ -33,7 +34,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   color: AppColors.pri500,
                 ),
                 onPressed: () {
-                  context.go("/edit-profile");
+                  context.push("/edit-profile");
                 },
               ),
             ),
@@ -160,11 +161,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: ElevatedButton(
                     onPressed: () async {
-                      await Provider.of<AppProvider>(context, listen: false)
-                          .logout();
-                      if (context.mounted) {
-                        context.go("/");
-                      }
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SignoutModal();
+                          });
+                      // await Provider.of<AppProvider>(context, listen: false)
+                      //     .logout();
+                      // if (context.mounted) {
+                      //   context.go("/");
+                      // }
                     },
                     style: ButtonStyle(
                         backgroundColor:
