@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/create-post/create_post_item.dart';
 import 'package:sarnfan/widgets/create-post/select_tag_item.dart';
@@ -45,7 +47,16 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "region": regionValue,
           "activity": activityValue
         };
-        print(data);
+        final response = await ApiService.post("/user/createpost", data);
+        if (response.statusCode == 201) {
+          print('Data sent successfully!');
+          if (!mounted) return;
+          context.go("/home");
+          if (response.statusCode != 201) {
+            print(response.body);
+          }
+          print(data);
+        }
       } catch (e) {
         print(e);
       }
@@ -59,7 +70,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
       appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                context.go("/home");
               },
               icon: const Icon(
                 Icons.arrow_back_rounded,

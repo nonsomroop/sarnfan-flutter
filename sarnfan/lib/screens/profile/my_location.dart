@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sarnfan/models/location.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/circular_loader.dart';
@@ -8,7 +7,6 @@ import 'package:sarnfan/widgets/white_surface.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MyLocationPage extends StatefulWidget {
   const MyLocationPage({super.key});

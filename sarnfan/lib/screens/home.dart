@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
       var response = await ApiService.get("/post");
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
+        if (data.isEmpty) {
+          return print("No data");
+        }
         setState(() {
           postList = data.map((postJson) => Post.fromJson(postJson)).toList();
         });

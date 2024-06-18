@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
+import 'package:sarnfan/widgets/create-post/post_list.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class MyHistoryPage extends StatelessWidget {
@@ -49,9 +50,8 @@ class MyHistoryPage extends StatelessWidget {
             ),
             WhiteSurface(
                 minHeight: MediaQuery.of(context).size.height - 146,
-                child: const Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(children: []),
+                child: const PostList(
+                  queryKey: "history",
                 ))
           ],
         ),
