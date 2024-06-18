@@ -5,6 +5,7 @@ class Post {
   final String title;
   final String content;
   final String createdDate;
+  
   final List<PostTag> tags;
 
   const Post({

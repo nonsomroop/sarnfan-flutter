@@ -1,19 +1,52 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:sarnfan/models/post.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/profile_card.dart';
 import 'package:sarnfan/widgets/tag.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class PostDetailPage extends StatefulWidget {
-  const PostDetailPage({super.key});
+  final String postId;
+  const PostDetailPage({super.key, required this.postId});
 
   @override
   State<PostDetailPage> createState() => _PostDetailPageState();
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
+  late Post post;
+  @override
+  // void initState() {
+  //   super.initState();
+  //   getPostDetail();
+  // }
+
+  Future<void> getPostDetail() async {
+    try {
+      var response = await ApiService.get("/post/${widget.postId}");
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        if (data.isEmpty) {
+          return print("No data");
+        }
+        setState(() {
+          post = data[0];
+        });
+        print("==================================sasafaf================");
+        print(post);
+      } else {
+        print('Failed to load posts: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error loading posts: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +134,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                               padding: const EdgeInsets.only(top: 15.0),
                               child: SizedBox(
                                 child: Text(
-                                  "Need improvement for playground, classroo, restroom (painting)",
+                                  "Place Holder",
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
