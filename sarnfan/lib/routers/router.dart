@@ -49,8 +49,10 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
       path: "/my-post-detail",
       builder: (context, state) => const MyPostDetailPage()),
   GoRoute(
-      path: "/post-detail",
-      builder: (context, state) => const PostDetailPage()),
+      path: "/post-detail/:id",
+      builder: (context, state) => PostDetailPage(
+            // postId: state.pathParameters['id']!,
+          )),
   GoRoute(
       path: "/my-profile", builder: (context, state) => const MyProfilePage()),
   GoRoute(

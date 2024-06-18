@@ -27,17 +27,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
       TextEditingController();
   final MapController mapController = MapController();
 
-  // LatLng _selectedLocation =
-  //     LatLng(AppProvider().latitude!, AppProvider().longitude!);
-  LatLng? _selectedLocation;
-  void updateLocation(LatLng location) {
-    mapController.move(location, 15);
-    setState(() {
-      _selectedLocation = location;
-      mapController.move(location, 15);
-    });
-  }
-
   var regionValue = 'All';
   var regions = [
     'All',
@@ -66,7 +55,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "content": _postDescriptionController.text,
           "region": regionValue,
           "activity": activityValue,
-          "end_date": selectedDate
+          "end_date": selectedDate.toString().substring(0, 10),
+          "latitude": location.latitude,
+          "longitude": location.longitude,
         };
         final response = await ApiService.post("/user/createpost", data);
         if (response.statusCode == 201) {
@@ -106,24 +97,35 @@ class _CreatePostPageState extends State<CreatePostPage> {
     }
   }
 
+  // late LatLng location = const LatLng(0, 0);
+  late LatLng location;
+
   @override
   void initState() {
     super.initState();
-    final appProvider = Provider.of<AppProvider>(context, listen: false);
-    print("hello");
-    print(appProvider.latitude);
-    if (appProvider.latitude != null && appProvider.longitude != null) {
-      _selectedLocation = LatLng(appProvider.latitude!, appProvider.longitude!);
-    } else {
-      _selectedLocation = LatLng(0, 0); // Provide a default location if needed
-    }
-  
+    location = LatLng(0, 0); // Initialize to default value
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // This will get called when context is fully initialized and up-to-date
+    final appProvider = context.read<AppProvider>();
+    location =
+        LatLng(appProvider.latitude ?? 0.0, appProvider.longitude ?? 0.0);
+  }
+
+  void updateLocation(LatLng newLocation) {
+    setState(() {
+      location = newLocation;
+      print("Location updated in CreatePostPage:");
+      print(location);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context);
-
     return Scaffold(
       backgroundColor: AppColors.pri500,
       appBar: AppBar(
@@ -207,12 +209,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               text: "Add Location",
                               icon: Icons.location_on_outlined,
                               color: AppColors.sec600,
-                              mapController: mapController,
-                              selectedLocation: appProvider.latitude != null &&
-                                      appProvider.longitude != null
-                                  ? LatLng(appProvider.latitude!,
-                                      appProvider.longitude!)
-                                  : const LatLng(0, 0),
+                              // location: location,
+                              location: location,
                               onLocationChange: updateLocation,
                             )),
 

@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:sarnfan/services/api_service.dart';
+import 'package:provider/provider.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/circular_loader.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
@@ -22,23 +23,26 @@ class _EditLocationPageState extends State<EditLocationPage> {
   bool _isLoading = true;
   final TextEditingController _searchController = TextEditingController();
   final MapController _mapController = MapController();
+
+  Future<void> _initProvider() async {
+    await Provider.of<AppProvider>(context, listen: false).init();
+  }
+
   @override
   void initState() {
     super.initState();
-    getMyLocation();
-  }
-
-  Future<void> getMyLocation() async {
-    try {
-      var res = await ApiService.get("/my-location");
-      const data = LatLng(13.67756931553056, 100.49165230566314);
+    // _initProvider();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final lat = Provider.of<AppProvider>(context, listen: false).latitude;
+      final long = Provider.of<AppProvider>(context, listen: false).longitude;
       setState(() {
-        marker = const Marker(
-            point: data,
-            child: Icon(Icons.location_on_rounded, color: AppColors.neu700));
+        marker = Marker(
+            point: LatLng(lat ?? 0, long ?? 0),
+            child:
+                const Icon(Icons.location_on_rounded, color: AppColors.neu700));
         _isLoading = false;
       });
-    } catch (e) {}
+    });
   }
 
   Future<void> saveMyLocation() async {
@@ -61,7 +65,6 @@ class _EditLocationPageState extends State<EditLocationPage> {
     final url = Uri.parse(
         'https://nominatim.openstreetmap.org/search?q=$query&format=json&limit=1');
     final response = await http.get(url);
-    print("location  " + response.body);
 
     if (response.statusCode == 200) {
       final List data = json.decode(response.body);
@@ -119,11 +122,10 @@ class _EditLocationPageState extends State<EditLocationPage> {
                         ],
                       )),
                   Padding(
-                    padding: const EdgeInsets.only(top:10.0, bottom:20),
-                    child: Container(
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 20),
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextFormField(
-                        
                         maxLines: 1,
                         controller: _searchController,
                         scrollPadding: const EdgeInsets.all(20),
@@ -136,11 +138,12 @@ class _EditLocationPageState extends State<EditLocationPage> {
                                   onPressed: () async {
                                     final query = _searchController.text;
                                     if (query.isNotEmpty) {
-                                      final location = await searchLocation(query);
+                                      final location =
+                                          await searchLocation(query);
                                       if (location != null) {
                                         setState(() {
                                           newMarker = markPin(location);
-                                          _mapController.move(location,10);
+                                          _mapController.move(location, 10);
                                         });
                                       }
                                     }
