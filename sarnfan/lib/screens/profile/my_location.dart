@@ -43,7 +43,10 @@ class _MyLocationPageState extends State<MyLocationPage> {
       point: point,
       width: 60,
       height: 60,
-      child: Icon(Icons.location_on_rounded, color: AppColors.red500,));
+      child: const Icon(
+        Icons.location_on_rounded,
+        color: AppColors.red500,
+      ));
 
   @override
   Widget build(BuildContext context) {

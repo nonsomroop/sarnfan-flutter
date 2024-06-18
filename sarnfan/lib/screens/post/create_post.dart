@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/create-post/create_post_item.dart';
+import 'package:sarnfan/widgets/create-post/location_button.dart';
 import 'package:sarnfan/widgets/create-post/select_tag_item.dart';
 import 'package:sarnfan/widgets/text_input.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
@@ -19,6 +25,19 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _postTitleController = TextEditingController();
   final TextEditingController _postDescriptionController =
       TextEditingController();
+  final MapController mapController = MapController();
+
+  // LatLng _selectedLocation =
+  //     LatLng(AppProvider().latitude!, AppProvider().longitude!);
+  LatLng? _selectedLocation;
+  void updateLocation(LatLng location) {
+    mapController.move(location, 15);
+    setState(() {
+      _selectedLocation = location;
+      mapController.move(location, 15);
+    });
+  }
+
   var regionValue = 'All';
   var regions = [
     'All',
@@ -38,6 +57,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
     'Other',
   ];
 
+  DateTime selectedDate = DateTime.now();
   Future<void> _createPost() async {
     if (_formKey.currentState?.validate() ?? false) {
       try {
@@ -45,7 +65,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "title": _postTitleController.text,
           "content": _postDescriptionController.text,
           "region": regionValue,
-          "activity": activityValue
+          "activity": activityValue,
+          "end_date": selectedDate
         };
         final response = await ApiService.post("/user/createpost", data);
         if (response.statusCode == 201) {
@@ -63,8 +84,46 @@ class _CreatePostPageState extends State<CreatePostPage> {
     }
   }
 
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 180)),
+        initialDate: selectedDate,
+        builder: (context, child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+                colorScheme: const ColorScheme.light(primary: AppColors.pri500),
+                buttonTheme:
+                    const ButtonThemeData(textTheme: ButtonTextTheme.primary)),
+            child: child!,
+          );
+        });
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final appProvider = Provider.of<AppProvider>(context, listen: false);
+    print("hello");
+    print(appProvider.latitude);
+    if (appProvider.latitude != null && appProvider.longitude != null) {
+      _selectedLocation = LatLng(appProvider.latitude!, appProvider.longitude!);
+    } else {
+      _selectedLocation = LatLng(0, 0); // Provide a default location if needed
+    }
+  
+  }
+
   @override
   Widget build(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context);
+
     return Scaffold(
       backgroundColor: AppColors.pri500,
       appBar: AppBar(
@@ -142,12 +201,55 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                 text: "Add Photos",
                                 icon: Icons.photo_rounded,
                                 color: AppColors.pri600)),
-                        const Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 10),
-                            child: CreatePostItem(
-                                text: "Add Location",
-                                icon: Icons.location_on_outlined,
-                                color: AppColors.sec600)),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 15, bottom: 10),
+                            child: LocationButton(
+                              text: "Add Location",
+                              icon: Icons.location_on_outlined,
+                              color: AppColors.sec600,
+                              mapController: mapController,
+                              selectedLocation: appProvider.latitude != null &&
+                                      appProvider.longitude != null
+                                  ? LatLng(appProvider.latitude!,
+                                      appProvider.longitude!)
+                                  : const LatLng(0, 0),
+                              onLocationChange: updateLocation,
+                            )),
+
+                        Padding(
+                            padding: const EdgeInsets.only(top: 15, bottom: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Select end date",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: AppColors.neu900),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * .9,
+                                  height: 50,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _selectDate(context);
+                                    },
+                                    child: TextFormField(
+                                      enabled: false,
+                                      controller: TextEditingController()
+                                        ..text = selectedDate
+                                            .toString()
+                                            .substring(0, 10),
+                                      // readOnly: true,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ) /*  */),
+
+                        //  child:Text("Select end date", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color:AppColors.neu900),),
+
                         Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 10),
                             child: Text(
@@ -168,7 +270,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                 setState(() {
                                   activityValue = activity;
                                 });
-                                print(activityValue);
                               },
                             );
                           }).toList()),
@@ -195,7 +296,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                         setState(() {
                                           regionValue = region;
                                         }),
-                                        print("region :$region")
                                       }
                                   },
                                   initialSelection: "All",

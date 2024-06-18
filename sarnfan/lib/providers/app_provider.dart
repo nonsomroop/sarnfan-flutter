@@ -9,7 +9,9 @@ class AppProvider extends ChangeNotifier {
   String? _type;
   String? _phone;
   String? _social;
-  String? _location;
+  // String? _location;
+  double? _latitude;
+  double? _longitude;
   bool _isLoggedIn = false;
 
   String? get username => _username;
@@ -17,7 +19,9 @@ class AppProvider extends ChangeNotifier {
   String? get type => _type;
   String? get phone => _phone;
   String? get social => _social;
-  String? get location => _location;
+  // String? get location => _location;
+  double? get latitude => _latitude;
+  double? get longitude => _longitude;
   bool get isLoggedIn => _isLoggedIn;
 
   Future<void> init() async {
@@ -33,7 +37,9 @@ class AppProvider extends ChangeNotifier {
           _type = userData["type"];
           _phone = userData["phone"];
           _social = userData["social"];
-          _location = userData["location"];
+          // _location = userData["location"];
+          _latitude = userData["latitude"];
+          _longitude = userData["longitude"];
           notifyListeners();
         } else {
           print("Failed to fetch user data: ${response.statusCode}");
@@ -50,7 +56,9 @@ class AppProvider extends ChangeNotifier {
     _type = null;
     _phone = null;
     _social = null;
-    _location = null;
+    // _location = null;
+    _latitude = null;
+    _longitude = null;
     _isLoggedIn = false;
 
     await ApiService.deleteToken();
