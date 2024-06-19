@@ -3,7 +3,10 @@ import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class OtherDescriptionPage extends StatelessWidget {
-  const OtherDescriptionPage({super.key});
+  final String userId;
+  const OtherDescriptionPage({super.key, required this.userId});
+
+  
 
   @override
   Widget build(BuildContext context) {

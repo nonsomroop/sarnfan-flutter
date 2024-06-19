@@ -10,6 +10,7 @@ import 'package:sarnfan/widgets/addpost_button.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/post_card.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List<Post> postList = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -37,6 +39,7 @@ class _HomePageState extends State<HomePage> {
         }
         setState(() {
           postList = data.map((postJson) => Post.fromJson(postJson)).toList();
+          _isLoading = false;
         });
         print(postList);
       } else {
@@ -89,31 +92,34 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Positioned(
                     top: -50,
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/school.png"),
-                              fit: BoxFit.cover,
+                    child: Skeletonizer(
+                      enabled: _isLoading,
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/school.png"),
+                                fit: BoxFit.cover,
+                              ),
                             ),
+                            width: 100,
+                            height: 100,
+                            alignment: Alignment.center,
                           ),
-                          width: 100,
-                          height: 100,
-                          alignment: Alignment.center,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:10.0),
-                          child: Text(appProvider.username ?? "",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.titleMedium),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Text(appProvider.username ?? "",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleMedium),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:20.0),
+                    padding: const EdgeInsets.only(top: 20.0),
                     child: Column(
                       children: [
                         Align(
@@ -134,16 +140,24 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Column(
-                            children: postList.map((post) {
-                              return PostCard(
-                                id: post.id,
-                                title: post.title,
-                                content: post.content,
-                                date: post.createdDate,
-                                tags: post.tags,
-                              );
-                            }).toList(),
+                          child: Skeletonizer(
+                            enabled: _isLoading,
+                            child: Column(
+                              children: postList.map((post) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    context.go("/post-detail/${post.id}");
+                                  },
+                                  child: PostCard(
+                                    id: post.id,
+                                    title: post.title,
+                                    content: post.content,
+                                    date: post.createdDate,
+                                    tags: post.tags,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ],

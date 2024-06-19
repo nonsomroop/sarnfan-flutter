@@ -31,7 +31,7 @@ class _EditLocationPageState extends State<EditLocationPage> {
   @override
   void initState() {
     super.initState();
-    // _initProvider();
+    _initProvider();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final lat = Provider.of<AppProvider>(context, listen: false).latitude;
       final long = Provider.of<AppProvider>(context, listen: false).longitude;
@@ -184,12 +184,7 @@ class _EditLocationPageState extends State<EditLocationPage> {
                             ],
                           ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-                        style: Theme.of(context).textTheme.bodyMedium),
-                  ),
+                  
                   Padding(
                     padding: const EdgeInsets.only(top: 50, bottom: 30),
                     child: Column(
