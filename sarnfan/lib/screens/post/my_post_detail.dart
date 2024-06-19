@@ -4,7 +4,8 @@ import 'package:sarnfan/widgets/tag.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class MyPostDetailPage extends StatefulWidget {
-  const MyPostDetailPage({super.key});
+  final String postId;
+  const MyPostDetailPage({super.key, required this.postId});
 
   @override
   State<MyPostDetailPage> createState() => _MyPostDetailPageState();

@@ -58,6 +58,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "end_date": selectedDate.toString().substring(0, 10),
           "latitude": location.latitude,
           "longitude": location.longitude,
+          "address": ""
         };
         final response = await ApiService.post("/user/createpost", data);
         if (response.statusCode == 201) {
@@ -209,7 +210,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               text: "Add Location",
                               icon: Icons.location_on_outlined,
                               color: AppColors.sec600,
-                              // location: location,
                               location: location,
                               onLocationChange: updateLocation,
                             )),
