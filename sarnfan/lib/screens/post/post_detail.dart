@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:sarnfan/models/post.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
@@ -19,25 +20,29 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
-  late Post post;
+  Post? post;
+  bool _isLoading = true;
 
   Future<void> getPostDetail() async {
     try {
       var response = await ApiService.get("/post/${widget.postId}");
-      // if (response.statusCode == 200) {
-      //   print(response.body);
-      //   List<dynamic> data = jsonDecode(response.body);
-      //   if (data.isEmpty) {
-      //     return print("No data");
-      //   }
-      //   setState(() {
-      //     post = data[0];
-      //   });
-      // } else {
-      //   print('Failed to load posts: ${response.statusCode}');
-      // }
+      if (response.statusCode == 200) {
+        // print(response.body);
+        final data = jsonDecode(response.body);
+        if (data.isNotEmpty) {
+          setState(() {
+            post = Post.fromJson(data);
+            _isLoading = false;
+          });
+        }
+        return;
+      } else {
+        print('Failed to load posts: ${response.statusCode}');
+        _isLoading = false;
+      }
     } catch (e) {
       print('Error loading posts: $e');
+      _isLoading = false;
     }
   }
 
@@ -134,7 +139,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                               padding: const EdgeInsets.only(top: 15.0),
                               child: SizedBox(
                                 child: Text(
-                                  "Place Holder",
+                                  post?.title ?? "-",
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
@@ -144,7 +149,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
                               padding: const EdgeInsets.only(top: 10.0),
                               child: SizedBox(
                                 child: Text(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem "),
+                                  post?.content ?? "-",
+                                ),
                               ),
                             ),
                             Padding(
@@ -158,17 +164,40 @@ class _PostDetailPageState extends State<PostDetailPage> {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width,
+                              height: 300,
+                              width: MediaQuery.of(context).size.width * 0.8,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    "assets/images/school.png",
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(color: AppColors.neu200),
                               ),
-                              height: 180,
+                              clipBehavior: Clip.antiAlias,
+                              child:
+                                  // _isLoading
+                                  //     ? const CircularLoader()
+                                  //     :
+                                  FlutterMap(
+                                options: MapOptions(
+                                  initialCenter: LatLng(post?.latitude ?? 0,
+                                      post?.longitude ?? 0),
+                                  initialZoom: 15,
+                                ),
+                                children: [
+                                  TileLayer(
+                                    urlTemplate:
+                                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                    userAgentPackageName: 'com.example.app',
+                                  ),
+                                  MarkerLayer(markers: [
+                                    Marker(
+                                        point: LatLng(post?.latitude ?? 0,
+                                            post?.longitude ?? 0),
+                                        child: Icon(
+                                          Icons.location_on_rounded,
+                                          color: AppColors.red500,
+                                        ))
+                                  ])
+                                ],
+                              ),
                             ),
                             Align(
                               alignment: Alignment.center,
