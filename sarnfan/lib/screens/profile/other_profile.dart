@@ -37,6 +37,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
             _isLoading = false;
           });
         }
+        return;
       } else {
         print('Failed to load user: ${response.statusCode}');
         setState(() {
