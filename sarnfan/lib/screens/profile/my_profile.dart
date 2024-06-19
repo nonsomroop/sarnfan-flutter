@@ -7,6 +7,7 @@ import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/profile_item.dart';
 import 'package:sarnfan/widgets/signout_modal.dart';
+import 'package:sarnfan/widgets/user_type.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
@@ -86,32 +87,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  spacing: 5,
-                                  children: [
-                                    Icon(
-                                      appProvider.type == "ind"
-                                          ? Icons.person_2_rounded
-                                          : appProvider.type == "org"
-                                              ? Icons.groups_2_rounded
-                                              : appProvider.type == "school"
-                                                  ? Icons.school_rounded
-                                                  : Icons.question_mark_rounded,
-                                      color: AppColors.pri600,
-                                      size: 20,
-                                    ),
-                                    Text(appProvider.type == "ind"
-                                          ? "Individual"
-                                          : appProvider.type == "org"
-                                              ? "Organization"
-                                              : appProvider.type == "school"
-                                                  ? "School"
-                                                  : "",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge?.copyWith(color:AppColors.pri600)),
-                                  ]),
+                              UserType(type: appProvider.type ?? ""),
                               Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   spacing: 5,

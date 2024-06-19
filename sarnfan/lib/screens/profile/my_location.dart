@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sarnfan/services/api_service.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/circular_loader.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
-
+import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -18,25 +18,24 @@ class MyLocationPage extends StatefulWidget {
 class _MyLocationPageState extends State<MyLocationPage> {
   late Marker marker;
   bool _isLoading = true;
+
+  Future<void> _initProvider() async {
+    await Provider.of<AppProvider>(context, listen: false).init();
+  }
+
   @override
   void initState() {
     super.initState();
-    getMyLocation();
-  }
+    _initProvider();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final lat = Provider.of<AppProvider>(context, listen: false).latitude;
+      final long = Provider.of<AppProvider>(context, listen: false).longitude;
+      setState(() {
+        marker = markPin(LatLng(lat ?? 0, long ?? 0));
 
-  Future<void> getMyLocation() async {
-    try {
-      var res = await ApiService.get("/my-location");
-      const data = LatLng(13.67756931553056, 100.49165230566314);
-      setState(() {
-        marker = markPin(data);
         _isLoading = false;
       });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    });
   }
 
   Marker markPin(LatLng point) => Marker(
@@ -109,7 +108,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
                         ? const CircularLoader()
                         : FlutterMap(
                             options: MapOptions(
-                              initialCenter: marker.point ?? LatLng(0, 0),
+                              initialCenter: marker.point,
                               initialZoom: 15,
                             ),
                             children: [
@@ -122,12 +121,6 @@ class _MyLocationPageState extends State<MyLocationPage> {
                             ],
                           ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-                        style: Theme.of(context).textTheme.bodyMedium),
-                  )
                 ],
               ),
             ),
