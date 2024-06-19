@@ -71,7 +71,6 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
               )),
           backgroundColor: AppColors.pri500,
         ),
-        bottomNavigationBar: const BottomNav(path: "/my-profile"),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -20,31 +20,31 @@ class PostDetailPage extends StatefulWidget {
 
 class _PostDetailPageState extends State<PostDetailPage> {
   late Post post;
-  @override
-  // void initState() {
-  //   super.initState();
-  //   getPostDetail();
-  // }
 
   Future<void> getPostDetail() async {
     try {
       var response = await ApiService.get("/post/${widget.postId}");
-      if (response.statusCode == 200) {
-        List<dynamic> data = jsonDecode(response.body);
-        if (data.isEmpty) {
-          return print("No data");
-        }
-        setState(() {
-          post = data[0];
-        });
-        print("==================================sasafaf================");
-        print(post);
-      } else {
-        print('Failed to load posts: ${response.statusCode}');
-      }
+      // if (response.statusCode == 200) {
+      //   print(response.body);
+      //   List<dynamic> data = jsonDecode(response.body);
+      //   if (data.isEmpty) {
+      //     return print("No data");
+      //   }
+      //   setState(() {
+      //     post = data[0];
+      //   });
+      // } else {
+      //   print('Failed to load posts: ${response.statusCode}');
+      // }
     } catch (e) {
       print('Error loading posts: $e');
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPostDetail();
   }
 
   @override
