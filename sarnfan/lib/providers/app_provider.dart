@@ -37,7 +37,6 @@ class AppProvider extends ChangeNotifier {
           _type = userData["type"];
           _phone = userData["phone"];
           _social = userData["social"];
-          // _location = userData["location"];
           _latitude = userData["latitude"];
           _longitude = userData["longitude"];
           notifyListeners();
