@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/create-post/post_list.dart';
-import 'package:sarnfan/widgets/post_card.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class StarredPage extends StatelessWidget {

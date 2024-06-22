@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/create-post/post_list.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
@@ -16,7 +17,7 @@ class MyHistoryPage extends StatelessWidget {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.go("/my-profile");
           },
         ),
         backgroundColor: AppColors.pri500,

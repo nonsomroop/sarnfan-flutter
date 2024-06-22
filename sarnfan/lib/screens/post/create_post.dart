@@ -97,7 +97,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
     }
   }
 
-  // late LatLng location = const LatLng(0, 0);
   late LatLng location;
 
   @override

@@ -9,6 +9,7 @@ class AppProvider extends ChangeNotifier {
   String? _type;
   String? _phone;
   String? _social;
+  String? _picture;
   // String? _location;
   double? _latitude;
   double? _longitude;
@@ -19,6 +20,7 @@ class AppProvider extends ChangeNotifier {
   String? get type => _type;
   String? get phone => _phone;
   String? get social => _social;
+  String? get picture => _picture;
   // String? get location => _location;
   double? get latitude => _latitude;
   double? get longitude => _longitude;
@@ -39,6 +41,7 @@ class AppProvider extends ChangeNotifier {
           _social = userData["social"];
           _latitude = userData["latitude"];
           _longitude = userData["longitude"];
+          _picture = userData["picture"];
           notifyListeners();
         } else {
           print("Failed to fetch user data: ${response.statusCode}");

@@ -8,6 +8,7 @@ import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/text_input.dart';
+import 'package:sarnfan/widgets/upload_avatar.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -132,14 +133,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 const SizedBox(
                                   height: 60,
                                 ),
-                                const SizedBox(
-                                  height: 120,
-                                  width: 120,
-                                  child: Image(
-                                    image:
-                                        AssetImage("assets/images/profile.png"),
-                                  ),
-                                ),
+                                UploadAvatar(
+                                    pictureUrl: appProvider.picture ?? ""),
                                 const SizedBox(
                                   height: 10,
                                 ),
