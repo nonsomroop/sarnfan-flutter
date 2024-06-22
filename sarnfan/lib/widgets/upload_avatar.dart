@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -65,7 +64,7 @@ class _UploadAvatarState extends State<UploadAvatar> {
                       : (widget.pictureUrl != null &&
                               widget.pictureUrl!.isNotEmpty
                           ? NetworkImage(ApiService.serverImage(
-                              "profile/${widget.pictureUrl}"))
+                              "profiles/${widget.pictureUrl}"))
                           : const AssetImage("assets/images/profile.png")),
               radius: 60,
             ),

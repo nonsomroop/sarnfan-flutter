@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -81,22 +80,25 @@ class ApiService {
   }
 
   static String serverImage(String path) {
-    return "$backendUrl/$path";
+    return "$backendUrl/pic/$path";
   }
 
   static Future<void> uploadImageProfilePic(
       String path, Uint8List imageBytes) async {
     final token = await _getToken();
     var request = http.MultipartRequest('PATCH', Uri.parse("$backendUrl$path"));
-    print(request);
+
     request.headers.addAll({
-      'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer $token',
     });
+
+    var stream = http.ByteStream.fromBytes(imageBytes);
+    var length = imageBytes.length;
+
     request.files.add(http.MultipartFile(
       'profilePic',
-      http.ByteStream.fromBytes(imageBytes),
-      imageBytes.length,
+      stream,
+      length,
       filename: 'profile_pic.png',
     ));
 
