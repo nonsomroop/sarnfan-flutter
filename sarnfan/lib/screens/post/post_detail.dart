@@ -165,7 +165,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                             ),
                             Container(
                               height: 300,
-                              width: MediaQuery.of(context).size.width * 0.8,
+                              width: MediaQuery.of(context).size.width ,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(color: AppColors.neu200),
