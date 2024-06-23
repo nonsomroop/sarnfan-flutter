@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
@@ -17,6 +18,8 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  static final backendUrl =
+      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context);
@@ -35,7 +38,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   color: AppColors.pri500,
                 ),
                 onPressed: () {
-                  context.push("/edit-profile");
+                  context.go("/edit-profile");
                 },
               ),
             ),
@@ -55,11 +58,26 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
                               height: 120,
                               width: 120,
-                              child: Image(
-                                image: AssetImage("assets/images/profile.png"),
+                              child: ClipOval(
+                                child: Image.network(
+                                  appProvider.picture != null
+                                      ? "$backendUrl/pic/profiles/${appProvider.picture}"
+                                      : "assets/images/profile.png",
+                                  fit: BoxFit
+                                      .cover, // Ensures the image covers the entire circle
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      "assets/images/profile.png",
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                             Padding(

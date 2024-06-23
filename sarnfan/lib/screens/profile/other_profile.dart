@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sarnfan/models/user.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/profile_item.dart';
 import 'package:sarnfan/widgets/user_type.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class OtherProfilePage extends StatefulWidget {
-  // final String userId;
-  const OtherProfilePage({
-    super.key,
-    //  required this.userId
-  });
+  final String username;
+  const OtherProfilePage({super.key, required this.username});
 
   @override
   State<OtherProfilePage> createState() => _OtherProfilePageState();
@@ -26,7 +23,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
   Future<void> getOtherUser() async {
     try {
       var response = await ApiService.post("/other/user", {
-        "username": "Chanakarn Limprasertsiri",
+        "username": widget.username,
       });
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -58,6 +55,8 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
     getOtherUser();
   }
 
+  static final backendUrl =
+      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,17 +87,27 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                  height: 120,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.neu50,
-                                    borderRadius: BorderRadius.circular(100),
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/profile.png"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                height: 120,
+                                width: 120,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    userData?.picture != null
+                                        ? "$backendUrl/pic/profiles/${userData?.picture}"
+                                        : "assets/images/profile.png",
+                                    fit: BoxFit
+                                        .cover, // Ensures the image covers the entire circle
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        "assets/images/profile.png",
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                               Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Text(
@@ -178,24 +187,24 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                     ]),
               ),
               const SizedBox(height: 120),
-              const ProfileItem(
+              ProfileItem(
                   text: "Description",
                   icon: Icons.description_outlined,
-                  path: "/my-description"),
+                  path: "/other-description/${userData?.username ?? ""}"),
               const SizedBox(
                 height: 15,
               ),
-              const ProfileItem(
+              ProfileItem(
                   text: "Location",
                   icon: Icons.location_on_outlined,
-                  path: "/my-location"),
+                  path: "/other-location/${userData?.username ?? ""}"),
               const SizedBox(
                 height: 15,
               ),
               const ProfileItem(
                   text: "History",
                   icon: Icons.history_rounded,
-                  path: "/my-history"),
+                  path: "/other-history"),
               const SizedBox(
                 height: 30,
               ),

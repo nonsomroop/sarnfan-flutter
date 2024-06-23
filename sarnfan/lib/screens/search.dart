@@ -1,9 +1,15 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:sarnfan/models/post.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/filter_button.dart';
 import 'package:sarnfan/widgets/post_card.dart';
 import 'package:sarnfan/widgets/search_bar.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -12,6 +18,36 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  late List<OtherPost> postList = [];
+  bool _isLoading = true;
+  @override
+  void initState() {
+    super.initState();
+    getAllPosts();
+  }
+
+  Future<void> getAllPosts() async {
+    try {
+      var response = await ApiService.get("/post");
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        if (data.isEmpty) {
+          return print("No data");
+        }
+        setState(() {
+          postList =
+              data.map((postJson) => OtherPost.fromJson(postJson)).toList();
+          filteredPostList = postList;
+          _isLoading = false;
+        });
+      } else {
+        print('Failed to load posts: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error loading posts: $e');
+    }
+  }
+
   var activityValue = 'All';
   var activities = ['All', 'Volunteer', 'Donation', 'Workshop', 'Other'];
   var regionValue = 'All';
@@ -25,7 +61,44 @@ class _SearchPageState extends State<SearchPage> {
     'Southern'
   ];
   var typeValue = 'All';
-  var types = ['All', 'School', 'Campaign', 'Individual'];
+  var types = ['All', 'school', 'campaign', 'ind'];
+  final TextEditingController _searchController = TextEditingController();
+  List<Post> filteredPostList = [];
+
+  dynamic _searchKeyword(String keyword) {
+    setState(() {
+      filterPosts();
+    });
+  }
+
+  void filterPosts() {
+    setState(() {
+      filteredPostList = postList.where((post) {
+        final matchesKeyword = post.title.contains(_searchController.text) ||
+            post.content.contains(_searchController.text);
+
+        final matchesType = typeValue == 'All' || post.owner.type == typeValue;
+        bool matchesActivity = false;
+        for (var tag in post.tags) {
+          if (tag.name == activityValue || activityValue == 'All') {
+            matchesActivity = true;
+            break;
+          }
+        }
+        bool matchesRegion = false;
+        for (var tag in post.tags) {
+          if (tag.name == regionValue || regionValue == 'All') {
+            matchesRegion = true;
+            break;
+          }
+        }
+        return matchesKeyword &&
+            matchesType &&
+            matchesActivity &&
+            matchesRegion;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +124,11 @@ class _SearchPageState extends State<SearchPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 10, left: 20, right: 20),
-                child: SearchField(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                child: SearchField(
+                    controller: _searchController,
+                    searchKeyword: _searchKeyword),
               ),
               const SizedBox(
                 height: 20,
@@ -68,11 +143,26 @@ class _SearchPageState extends State<SearchPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: types.map((type) {
+                            final typeFormat = type == 'school'
+                                ? 'School'
+                                : type == 'campaign'
+                                    ? 'Campaign'
+                                    : type == 'ind'
+                                        ? 'Individual'
+                                        : 'All';
                             return Expanded(
                               flex: 1,
-                              child: FilterButton(
-                                text: type,
-                                isSelected: type == typeValue,
+                              child: GestureDetector(
+                                child: FilterButton(
+                                  text: typeFormat,
+                                  isSelected: type == typeValue,
+                                  onTap: () {
+                                    setState(() {
+                                      typeValue = type;
+                                      filterPosts();
+                                    });
+                                  },
+                                ),
                               ),
                             );
                           }).toList(),
@@ -101,8 +191,8 @@ class _SearchPageState extends State<SearchPage> {
                                           {
                                             setState(() {
                                               activityValue = activity;
+                                              filterPosts();
                                             }),
-                                            print("activity :" + activity)
                                           }
                                       },
                                       initialSelection: "All",
@@ -132,8 +222,8 @@ class _SearchPageState extends State<SearchPage> {
                                           {
                                             setState(() {
                                               regionValue = region;
+                                              filterPosts();
                                             }),
-                                            print("region :$region")
                                           }
                                       },
                                       initialSelection: "All",
@@ -155,20 +245,21 @@ class _SearchPageState extends State<SearchPage> {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
-                      const Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 20.0, right: 20),
+                      Skeletonizer(
+                        enabled: _isLoading,
+                        child: Column(
+                            children: filteredPostList.map((post) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 20),
                             child: PostCard(
-                                id: 1,
-                                title:
-                                    "Need improvement for playground (painting)",
-                                content:
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem ",
-                                date: "07:00 PM 24 Jab 2024",
-                                tags: []),
-                          ),
-                        ],
+                                id: post.id,
+                                title: post.title,
+                                content: post.content,
+                                date: post.createdDate,
+                                tags: post.tags),
+                          );
+                        }).toList()),
                       )
                     ],
                   ))

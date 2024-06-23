@@ -54,7 +54,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "content": _postDescriptionController.text,
           "region": regionValue,
           "activity": activityValue,
-          "end_date": selectedDate.toString().substring(0, 10),
+          "end_date": "${selectedDate.toIso8601String()}Z",
           "latitude": location.latitude,
           "longitude": location.longitude,
           "address": ""

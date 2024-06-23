@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
@@ -20,6 +22,8 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
   }
 
   Widget build(BuildContext context) {
+    final appProvider = Provider.of<AppProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -76,10 +80,11 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 30, right: 30),
-                                child: TextField(
+                                child: TextFormField(
                                   maxLines: null,
                                   keyboardType: TextInputType.multiline,
                                   controller: _descriptionController,
+                                  initialValue: appProvider.description,
                                   decoration: InputDecoration(
                                       hintText: "Enter your description here",
                                       hintStyle: Theme.of(context)

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/models/post.dart';
@@ -50,6 +51,8 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  static final backendUrl =
+      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context);
@@ -71,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(100)),
                   child: IconButton(
                     onPressed: () {
-                      context.push("/search");
+                      context.go("/search");
                     },
                     icon: const Icon(
                       Icons.search,
@@ -99,14 +102,18 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/school.png"),
-                                fit: BoxFit.cover,
-                              ),
                             ),
                             width: 100,
                             height: 100,
                             alignment: Alignment.center,
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: appProvider.picture != null
+                                  ? NetworkImage(
+                                      "$backendUrl/pic/profiles/${appProvider.picture}")
+                                  : const AssetImage(
+                                      "assets/images/profile.png"),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 10.0),

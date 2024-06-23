@@ -4,7 +4,13 @@ import 'package:sarnfan/themes/color_theme.dart';
 class FilterButton extends StatelessWidget {
   final String text;
   final bool isSelected;
-  const FilterButton({super.key, required this.text, required this.isSelected});
+  final VoidCallback onTap; // Define onTap callback
+
+  const FilterButton(
+      {super.key,
+      required this.text,
+      required this.isSelected,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,9 @@ class FilterButton extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 80, maxWidth: 100),
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                onTap(); // Call onTap callback
+              },
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(const EdgeInsets.all(5)),
                 shape: WidgetStateProperty.all(RoundedRectangleBorder(

@@ -92,8 +92,10 @@ class _SignInPageState extends State<SignInPage> {
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: _passwordController,
+                            
                             decoration: const InputDecoration(
                               labelText: 'Password',
+                              hintText: "**********"
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
