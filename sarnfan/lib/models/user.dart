@@ -1,4 +1,5 @@
 class User {
+  final String? picture;
   final String email;
   final String username;
   final String type;
@@ -7,8 +8,10 @@ class User {
   final double? longitude;
   final String social;
   final String? address;
+  final String? description;
 
   User({
+    this.picture,
     required this.email,
     required this.username,
     required this.type,
@@ -17,10 +20,12 @@ class User {
     this.longitude,
     required this.social,
     this.address,
+    this.description,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
+      picture: json['picture'],
       email: json['email'],
       username: json['username'],
       type: json['type'],
@@ -29,6 +34,7 @@ class User {
       longitude: json['longitude']?.toDouble(),
       social: json['social'],
       address: json['address'],
+      description: json['description'],
     );
   }
 }

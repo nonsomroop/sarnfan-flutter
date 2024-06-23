@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:sarnfan/models/user.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/profile_item.dart';
 import 'package:sarnfan/widgets/user_type.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class OtherProfilePage extends StatefulWidget {
-  // final String userId;
+  final String username;
   const OtherProfilePage({
     super.key,
-    //  required this.userId
+     required this.username
   });
 
   @override
@@ -26,7 +25,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
   Future<void> getOtherUser() async {
     try {
       var response = await ApiService.post("/other/user", {
-        "username": "Chanakarn Limprasertsiri",
+        "username": widget.username,
       });
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

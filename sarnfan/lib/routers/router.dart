@@ -69,9 +69,9 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
       path: "/edit-description",
       builder: (context, state) => const EditDescriptionPage()),
   GoRoute(
-      path: "/other-profile",
-      builder: (context, state) => const OtherProfilePage(
-          // username: state.pathParameters['id']!,
+      path: "/other-profile/:username",
+      builder: (context, state) =>  OtherProfilePage(
+            username: state.pathParameters['username']!,
           )),
   GoRoute(
       path: "/edit-profile",
