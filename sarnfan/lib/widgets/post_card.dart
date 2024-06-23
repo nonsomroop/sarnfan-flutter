@@ -28,7 +28,7 @@ class _PostCardState extends State<PostCard> {
     return GestureDetector(
       onTap: () {
         // Navigator.pushNamed(context, "/post/${widget.id}");
-        context.go("/post-detail/${widget.id}");
+        context.push("/post-detail/${widget.id}");
       },
       child: Container(
         height: 180,

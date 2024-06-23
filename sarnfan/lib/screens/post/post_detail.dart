@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:sarnfan/models/post.dart';
+import 'package:sarnfan/models/post_detail.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/profile_card.dart';
@@ -16,6 +17,7 @@ import 'package:sarnfan/functions/format_date_time.dart';
 
 class PostDetailPage extends StatefulWidget {
   final String postId;
+
   const PostDetailPage({super.key, required this.postId});
 
   @override
@@ -23,28 +25,52 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
-  OtherPost? post;
+  PostDetail? post;
   bool _isLoading = true;
+  bool _isStar = false;
 
   Future<void> getPostDetail() async {
     try {
-      var response = await ApiService.get("/post/${widget.postId}");
+      var response = await ApiService.get("/user/post/${widget.postId}");
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        if (data.isNotEmpty) {
+        var favourites = data['Favourite'] as List<dynamic>;
+        if (data != null) {
           setState(() {
-            post = OtherPost.fromJson(data);
+            post = PostDetail.fromJson(data, favourites.isNotEmpty);
             _isLoading = false;
+            _isStar =
+                favourites.isNotEmpty; // Update _isStar based on favourites
           });
         }
         return;
       } else {
         print('Failed to load posts: ${response.statusCode}');
-        _isLoading = false;
       }
     } catch (e) {
       print('Error loading posts: $e');
-      _isLoading = false;
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> starClick() async {
+    try {
+      if (post == null) {
+        print('Error: No post loaded');
+        return;
+      }
+      var data = {"post_id": post?.id ?? -1};
+      var response = await ApiService.post("/user/star", data);
+      if (response.statusCode == 200) {
+        setState(() {
+          _isStar = !_isStar; // Toggle _isStar state
+        });
+      }
+    } catch (e) {
+      print('Error starring post: $e');
     }
   }
 
@@ -67,12 +93,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
             alignment: Alignment.topLeft,
             children: [
               Positioned(
-                // bottom: 300,
                 child: SizedBox(
                   height: 250,
                   child: Image(
                     image: AssetImage("assets/images/school.png"),
-                    // height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -82,13 +106,14 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_rounded,
-                        color: AppColors.neu50,
-                      )),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColors.neu50,
+                    ),
+                  ),
                 ),
               ),
               Column(
@@ -119,11 +144,20 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                   Wrap(
                                     children: [
                                       IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.report)),
+                                        onPressed: () {},
+                                        icon: Icon(Icons.report),
+                                      ),
                                       IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.star_border_rounded))
+                                        onPressed: starClick,
+                                        icon: Icon(
+                                          _isStar
+                                              ? Icons.star
+                                              : Icons.star_border_rounded,
+                                          color: _isStar
+                                              ? Colors.amber
+                                              : AppColors.grey,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
