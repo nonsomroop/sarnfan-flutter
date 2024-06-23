@@ -10,6 +10,7 @@ class AppProvider extends ChangeNotifier {
   String? _phone;
   String? _social;
   // String? _location;
+  String? _description;
   double? _latitude;
   double? _longitude;
   bool _isLoggedIn = false;
@@ -19,6 +20,7 @@ class AppProvider extends ChangeNotifier {
   String? get type => _type;
   String? get phone => _phone;
   String? get social => _social;
+  String? get description => _description;
   // String? get location => _location;
   double? get latitude => _latitude;
   double? get longitude => _longitude;
@@ -37,9 +39,11 @@ class AppProvider extends ChangeNotifier {
           _type = userData["type"];
           _phone = userData["phone"];
           _social = userData["social"];
+      
           // _location = userData["location"];
           _latitude = userData["latitude"];
           _longitude = userData["longitude"];
+          _description = userData["description"];
           notifyListeners();
         } else {
           print("Failed to fetch user data: ${response.statusCode}");
@@ -60,6 +64,7 @@ class AppProvider extends ChangeNotifier {
     _latitude = null;
     _longitude = null;
     _isLoggedIn = false;
+    _description = null;
 
     await ApiService.deleteToken();
     notifyListeners();
