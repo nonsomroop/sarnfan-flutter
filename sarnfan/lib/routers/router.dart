@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
 import 'package:sarnfan/screens/auth/sign_in.dart';
 import 'package:sarnfan/screens/auth/sign_up.dart';
-import 'package:sarnfan/screens/faq.dart';
+import 'package:sarnfan/screens/faq/faq.dart';
+import 'package:sarnfan/screens/faq/how_to_get_verified.dart';
+import 'package:sarnfan/screens/faq/how_to_use.dart';
+import 'package:sarnfan/screens/faq/what_is_sarnfan.dart';
 import 'package:sarnfan/screens/home.dart';
 import 'package:sarnfan/screens/post/create_post.dart';
 import 'package:sarnfan/screens/post/my_post_detail.dart';
@@ -39,9 +42,18 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(path: "/signup", builder: (context, state) => const SignUpPage()),
   GoRoute(path: "/home", builder: (context, state) => const HomePage()),
   GoRoute(path: "/search", builder: (context, state) => const SearchPage()),
-  GoRoute(path: "/help", builder: (context, state) => const TestPage()),
+  // GoRoute(path: "/help", builder: (context, state) => const TestPage()),
   GoRoute(path: "/faq", builder: (context, state) => const FAQPage()),
   GoRoute(path: "/starred", builder: (context, state) => const StarredPage()),
+  GoRoute(
+      path: "/what-is-sarnfan",
+      builder: (context, state) => const WhatIsSarnFanPage()),
+  GoRoute(
+      path: "/how-to-use", builder: (context, state) => const HowToUsePage()),
+  GoRoute(
+      path: "/how-to-get-verified",
+      builder: (context, state) => const HowToGetVerified()),
+
   GoRoute(
       path: "/create-post",
       builder: (context, state) => const CreatePostPage()),

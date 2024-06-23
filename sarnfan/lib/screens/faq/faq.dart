@@ -23,12 +23,12 @@ class FAQPage extends StatelessWidget {
           const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FAQItem(path: "faq/what-is-sarnfan", text: "What is SarnFan?"),
+              FAQItem(path: "/what-is-sarnfan", text: "What is SarnFan?"),
               FAQItem(path: "faq/how-to-use", text: "How to use?"),
               FAQItem(path: "faq/how-to-verify", text: "How to get verified?"),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
@@ -39,7 +39,6 @@ class FAQPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
-
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text("Contact us",
