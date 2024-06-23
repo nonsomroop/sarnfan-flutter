@@ -10,6 +10,7 @@ import 'package:sarnfan/models/post_detail.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/profile_card.dart';
+import 'package:sarnfan/widgets/report_post.dart';
 import 'package:sarnfan/widgets/tag.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -144,7 +145,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                   Wrap(
                                     children: [
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return ReportPost();
+                                              });
+                                        },
                                         icon: Icon(Icons.report),
                                       ),
                                       IconButton(
