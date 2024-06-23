@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/circular_loader.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
@@ -45,15 +47,13 @@ class _EditLocationPageState extends State<EditLocationPage> {
     });
   }
 
-  Future<void> saveMyLocation() async {
-    if (newMarker == null) {
-      return;
-    }
-    try {
-      print(newMarker!.point.latitude);
-      print(newMarker!.point.longitude);
-    } catch (e) {}
-  }
+  // Future<void> saveMyLocation() async {
+
+  //   try {
+  //     print(newMarker!.point.latitude);
+  //     print(newMarker!.point.longitude);
+  //   } catch (e) {}
+  // }
 
   Marker markPin(LatLng point) => Marker(
       point: point,
@@ -75,6 +75,36 @@ class _EditLocationPageState extends State<EditLocationPage> {
       }
     }
     return null;
+  }
+
+  Future<void> _updateData() async {
+    if (newMarker == null) {
+      context.go("/my-profile");
+      return;
+    }
+    try {
+      final data = {
+        "latitude": newMarker?.point.latitude,
+        "longitude": newMarker?.point.longitude,
+      };
+      final response = await ApiService.patch("/user/updateLocation", data);
+      if (response.statusCode == 200) {
+        print('Data sent successfully!');
+        final dynamic responseData = jsonDecode(response.body);
+        final String? message = responseData;
+        print(message);
+        if (!mounted) return;
+        Provider.of<AppProvider>(context, listen: false).init();
+        context.go("/my-profile");
+      } else {
+        print('Status data: ${response.statusCode}');
+        if (response.statusCode != 201) {
+          print(response.body);
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -184,7 +214,6 @@ class _EditLocationPageState extends State<EditLocationPage> {
                             ],
                           ),
                   ),
-                  
                   Padding(
                     padding: const EdgeInsets.only(top: 50, bottom: 30),
                     child: Column(
@@ -206,7 +235,7 @@ class _EditLocationPageState extends State<EditLocationPage> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: ElevatedButton(
                               onPressed: () {
-                                saveMyLocation();
+                                _updateData();
                               },
                               style: ButtonStyle(
                                   backgroundColor:
