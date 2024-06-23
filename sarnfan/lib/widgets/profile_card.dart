@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 
@@ -15,7 +16,8 @@ class ProfileCard extends StatelessWidget {
       required this.phone,
       required this.username,
       required this.social});
-
+  static final backendUrl =
+      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,11 +39,19 @@ class ProfileCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(
+              Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
                 width: 80,
-                height: 120,
-                child: Image(
-                  image: AssetImage("assets/images/profile.png"),
+                height: 80,
+                alignment: Alignment.center,
+                child: CircleAvatar(
+                  radius: 50,
+                  foregroundImage:
+                      NetworkImage("$backendUrl/pic/profiles/$picture"),
+                  backgroundImage:
+                      const AssetImage("assets/images/profile.png"),
                 ),
               ),
               Column(

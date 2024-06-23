@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:sarnfan/models/post.dart';
@@ -29,7 +30,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
     try {
       var response = await ApiService.get("/post/${widget.postId}");
       if (response.statusCode == 200) {
-        // print(response.body);
         final data = jsonDecode(response.body);
         if (data.isNotEmpty) {
           setState(() {
@@ -54,6 +54,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
     getPostDetail();
   }
 
+  static final backendUrl =
+      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +144,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                 ),
                               ),
                               ProfileCard(
-                                picture: post?.owner.picture ?? "-",
+                                picture: post?.owner.picture ?? "",
                                 email: post?.owner.email ?? "-",
                                 username: post?.owner.username ?? "-",
                                 phone: post?.owner.phone ?? "-",

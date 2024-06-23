@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
-import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
@@ -19,7 +18,8 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-  // final String backend = ApiService.backendUrl;
+  static final backendUrl =
+      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context);
@@ -58,13 +58,26 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
                               height: 120,
                               width: 120,
-                              child: Image(
-                                image: AssetImage(appProvider.picture != null
-                                    ? "${ApiService.backendUrl}/pic/profiles/${appProvider.picture}"
-                                    : "assets/images/profile.png"),
+                              child: ClipOval(
+                                child: Image.network(
+                                  appProvider.picture != null
+                                      ? "$backendUrl/pic/profiles/${appProvider.picture}"
+                                      : "assets/images/profile.png",
+                                  fit: BoxFit
+                                      .cover, // Ensures the image covers the entire circle
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      "assets/images/profile.png",
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                             Padding(
