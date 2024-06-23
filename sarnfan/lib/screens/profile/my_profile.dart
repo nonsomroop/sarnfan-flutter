@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/green_surface.dart';
@@ -17,6 +19,7 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  // final String backend = ApiService.backendUrl;
   @override
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context);
@@ -35,7 +38,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   color: AppColors.pri500,
                 ),
                 onPressed: () {
-                  context.push("/edit-profile");
+                  context.go("/edit-profile");
                 },
               ),
             ),
@@ -55,11 +58,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               height: 120,
                               width: 120,
                               child: Image(
-                                image: AssetImage("assets/images/profile.png"),
+                                image: AssetImage(appProvider.picture != null
+                                    ? "${ApiService.backendUrl}/pic/profiles/${appProvider.picture}"
+                                    : "assets/images/profile.png"),
                               ),
                             ),
                             Padding(
