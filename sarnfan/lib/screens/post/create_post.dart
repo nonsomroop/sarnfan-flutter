@@ -1,6 +1,11 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
@@ -25,6 +30,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _postDescriptionController =
       TextEditingController();
   final MapController mapController = MapController();
+  File? _photo;
+  Uint8List? _webPhoto;
 
   var regionValue = 'All';
   var regions = [
@@ -46,6 +53,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   ];
 
   DateTime selectedDate = DateTime.now();
+
   Future<void> _createPost() async {
     if (_formKey.currentState?.validate() ?? false) {
       try {
@@ -54,7 +62,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "content": _postDescriptionController.text,
           "region": regionValue,
           "activity": activityValue,
-          "end_date": "${selectedDate.toIso8601String()}Z",
+          "end_date": selectedDate.toString().substring(0, 10),
           "latitude": location.latitude,
           "longitude": location.longitude,
           "address": ""
@@ -99,10 +107,30 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   late LatLng location;
 
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      if (kIsWeb) {
+        _webPhoto = await pickedFile.readAsBytes();
+      } else {
+        _photo = File(pickedFile.path);
+      }
+      setState(() {});
+    }
+  }
+
+  void _updateImage(File? newPhoto, Uint8List? newWebPhoto) {
+    setState(() {
+      _photo = newPhoto;
+      _webPhoto = newWebPhoto;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    location = const LatLng(0, 0); 
+    location = const LatLng(0, 0);
   }
 
   @override
@@ -195,12 +223,17 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             emptyValidator: true,
                           ),
                         ),
-                        const Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 10),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 15, bottom: 10),
                             child: CreatePostItem(
-                                text: "Add Photos",
-                                icon: Icons.photo_rounded,
-                                color: AppColors.pri600)),
+                              text: "Add Photo",
+                              icon: Icons.photo_rounded,
+                              color: AppColors.pri600,
+                              photo: _photo,
+                              webPhoto: _webPhoto,
+                              pickImage: _pickImage,
+                              onImageUpdated: _updateImage,
+                            )),
                         Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 10),
                             child: LocationButton(

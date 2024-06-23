@@ -10,6 +10,7 @@ import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/addpost_button.dart';
 import 'package:sarnfan/widgets/bottom_nav.dart';
 import 'package:sarnfan/widgets/post_card.dart';
+import 'package:sarnfan/widgets/post_load.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -150,20 +151,22 @@ class _HomePageState extends State<HomePage> {
                           child: Skeletonizer(
                             enabled: _isLoading,
                             child: Column(
-                              children: postList.map((post) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    context.go("/post-detail/${post.id}");
-                                  },
-                                  child: PostCard(
-                                    id: post.id,
-                                    title: post.title,
-                                    content: post.content,
-                                    date: post.createdDate,
-                                    tags: post.tags,
-                                  ),
-                                );
-                              }).toList(),
+                              children: _isLoading == true
+                                  ? const [PostLoad(), PostLoad(), PostLoad()]
+                                  : (postList.map((post) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          context.go("/post-detail/${post.id}");
+                                        },
+                                        child: PostCard(
+                                          id: post.id,
+                                          title: post.title,
+                                          content: post.content,
+                                          date: post.createdDate,
+                                          tags: post.tags,
+                                        ),
+                                      );
+                                    }).toList()),
                             ),
                           ),
                         ),

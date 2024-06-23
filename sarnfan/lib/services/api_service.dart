@@ -83,7 +83,7 @@ class ApiService {
     return "$backendUrl/pic/$path";
   }
 
-  static Future<void> uploadImageProfilePic(
+  static Future<http.Response> uploadImageProfilePic(
       String path, Uint8List imageBytes) async {
     final token = await _getToken();
     var request = http.MultipartRequest('PATCH', Uri.parse("$backendUrl$path"));
@@ -111,8 +111,10 @@ class ApiService {
       } else {
         print('Failed to upload image: ${response.statusCode}');
       }
+      return response;
     } catch (e) {
       print('Error uploading image: $e');
+      return http.Response('Error uploading image', 500);
     }
   }
 }
