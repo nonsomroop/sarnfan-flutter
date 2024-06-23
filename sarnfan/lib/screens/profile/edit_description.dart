@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sarnfan/providers/app_provider.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
@@ -14,11 +18,44 @@ class EditDescriptionPage extends StatefulWidget {
 class _EditDescriptionPageState extends State<EditDescriptionPage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  final TextEditingController _descriptionController = TextEditingController();
+  late TextEditingController _descriptionController = TextEditingController();
   @override
   void dispose() {
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  Future<void> _updateData() async {
+    try {
+      final data = {
+        "description": _descriptionController.text,
+      };
+      final response = await ApiService.patch("/user/updateDescription", data);
+      if (response.statusCode == 200) {
+        print('Data sent successfully!');
+        final dynamic responseData = jsonDecode(response.body);
+        final String? message = responseData;
+        print(message);
+        if (!mounted) return;
+        Provider.of<AppProvider>(context, listen: false).init();
+        context.go("/my-profile");
+      } else {
+        print('Status data: ${response.statusCode}');
+        if (response.statusCode != 201) {
+          print(response.body);
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final appProvider = Provider.of<AppProvider>(context, listen: false);
+    _descriptionController =
+        TextEditingController(text: appProvider.description);
   }
 
   Widget build(BuildContext context) {
@@ -84,7 +121,6 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
                                   maxLines: null,
                                   keyboardType: TextInputType.multiline,
                                   controller: _descriptionController,
-                                  initialValue: appProvider.description,
                                   decoration: InputDecoration(
                                       hintText: "Enter your description here",
                                       hintStyle: Theme.of(context)
@@ -130,8 +166,7 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
                                           0.7,
                                       child: ElevatedButton(
                                           onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {}
+                                            _updateData();
                                           },
                                           style: ButtonStyle(
                                               backgroundColor:
