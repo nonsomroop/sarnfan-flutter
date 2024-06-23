@@ -71,7 +71,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         print(message);
         if (!mounted) return;
         Provider.of<AppProvider>(context, listen: false).init();
-        context.pop(context);
+        context.go("/my-profile");
       } else if (response.statusCode == 400) {
         final dynamic responseData = jsonDecode(response.body);
         final String? message = responseData;
@@ -225,7 +225,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: OutlinedButton(
                         onPressed: () {
-                          context.pop(context);
+                          context.go("/my-profile");
                         },
                         child: const Text(
                           "Cancel",

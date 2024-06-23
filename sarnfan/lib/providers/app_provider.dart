@@ -4,25 +4,25 @@ import 'package:http/http.dart';
 import 'package:sarnfan/services/api_service.dart';
 
 class AppProvider extends ChangeNotifier {
+  String? _picture;
   String? _username;
   String? _email;
   String? _type;
   String? _phone;
   String? _social;
-  String? _picture;
   // String? _location;
   String? _description;
   double? _latitude;
   double? _longitude;
   bool _isLoggedIn = false;
 
+  String? get picture => _picture;
   String? get username => _username;
   String? get email => _email;
   String? get type => _type;
   String? get phone => _phone;
   String? get social => _social;
   String? get description => _description;
-  String? get picture => _picture;
   // String? get location => _location;
   double? get latitude => _latitude;
   double? get longitude => _longitude;
@@ -36,12 +36,15 @@ class AppProvider extends ChangeNotifier {
 
         if (response.statusCode == 200) {
           Map<String, dynamic> userData = jsonDecode(response.body);
+          _picture = userData["picture"];
           _username = userData["username"];
           _email = userData["email"];
           _type = userData["type"];
           _phone = userData["phone"];
           _social = userData["social"];
           _description = userData["description"];
+
+          // _location = userData["location"];
           _latitude = userData["latitude"];
           _longitude = userData["longitude"];
           _picture = userData["picture"];
