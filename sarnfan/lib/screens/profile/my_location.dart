@@ -57,7 +57,7 @@ class _MyLocationPageState extends State<MyLocationPage> {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.go("/my-profile");
           },
         ),
         backgroundColor: AppColors.pri500,

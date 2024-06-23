@@ -20,7 +20,7 @@ class MyDescriptionPage extends StatelessWidget {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.go("/my-profile");
           },
         ),
         backgroundColor: AppColors.pri500,

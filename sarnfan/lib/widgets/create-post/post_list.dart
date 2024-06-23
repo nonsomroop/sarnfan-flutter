@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:sarnfan/models/post.dart';
-import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/widgets/post_card.dart';
 
 class PostList extends StatefulWidget {

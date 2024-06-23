@@ -8,15 +8,18 @@ class CustomTextInput extends StatefulWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final bool emptyValidator;
+  final FormFieldValidator<String>? validator;
 
-  const CustomTextInput(
-      {super.key,
-      required this.title,
-      required this.placeholder,
-      required this.titleColor,
-      this.controller,
-      this.obscureText = false,
-      this.emptyValidator = false});
+  const CustomTextInput({
+    super.key,
+    required this.title,
+    required this.placeholder,
+    required this.titleColor,
+    this.controller,
+    this.obscureText = false,
+    this.emptyValidator = false,
+    this.validator,
+  });
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -43,14 +46,15 @@ class _CustomTextInputState extends State<CustomTextInput> {
         ),
         obscureText: widget.obscureText,
         controller: widget.controller,
-        validator: (widget.emptyValidator)
-            ? (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter ${widget.title.toLowerCase()}';
-                }
-                return null;
-              }
-            : null,
+        validator: (value) {
+          if (widget.emptyValidator && (value == null || value.isEmpty)) {
+            return 'Please enter ${widget.title.toLowerCase()}';
+          }
+          if (widget.validator != null) {
+            return widget.validator!(value);
+          }
+          return null;
+        },
       )
     ]);
   }

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -75,5 +77,42 @@ class ApiService {
       },
     );
     return response;
+  }
+
+  static String serverImage(String path) {
+    return "$backendUrl/pic/$path";
+  }
+
+  static Future<void> uploadImageProfilePic(
+      String path, Uint8List imageBytes) async {
+    final token = await _getToken();
+    var request = http.MultipartRequest('PATCH', Uri.parse("$backendUrl$path"));
+
+    request.headers.addAll({
+      'Authorization': 'Bearer $token',
+    });
+
+    var stream = http.ByteStream.fromBytes(imageBytes);
+    var length = imageBytes.length;
+
+    request.files.add(http.MultipartFile(
+      'profilePic',
+      stream,
+      length,
+      filename: 'profile_pic.png',
+    ));
+
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        print('Image uploaded successfully');
+      } else {
+        print('Failed to upload image: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
   }
 }

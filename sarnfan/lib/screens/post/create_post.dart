@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
@@ -98,19 +97,17 @@ class _CreatePostPageState extends State<CreatePostPage> {
     }
   }
 
-  // late LatLng location = const LatLng(0, 0);
   late LatLng location;
 
   @override
   void initState() {
     super.initState();
-    location = LatLng(0, 0); // Initialize to default value
+    location = const LatLng(0, 0); 
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // This will get called when context is fully initialized and up-to-date
     final appProvider = context.read<AppProvider>();
     location =
         LatLng(appProvider.latitude ?? 0.0, appProvider.longitude ?? 0.0);
