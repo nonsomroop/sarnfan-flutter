@@ -59,8 +59,7 @@ class MyDescriptionPage extends StatelessWidget {
                       )),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Text(
-                        appProvider.description ?? "No description yet",
+                    child: Text(appProvider.description ?? "No description yet",
                         style: Theme.of(context).textTheme.bodyMedium),
                   )
                 ],

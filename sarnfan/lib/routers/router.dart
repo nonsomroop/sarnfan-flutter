@@ -61,16 +61,16 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
       path: "/my-description",
       builder: (context, state) => const MyDescriptionPage()),
   GoRoute(
-      path: "/other-description/:id",
+      path: "/other-description/:username",
       builder: (context, state) => OtherDescriptionPage(
-            userId: state.pathParameters['id']!,
+            username: state.pathParameters['username']!,
           )),
   GoRoute(
       path: "/edit-description",
       builder: (context, state) => const EditDescriptionPage()),
   GoRoute(
       path: "/other-profile/:username",
-      builder: (context, state) =>  OtherProfilePage(
+      builder: (context, state) => OtherProfilePage(
             username: state.pathParameters['username']!,
           )),
   GoRoute(
@@ -88,6 +88,7 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
       path: "/edit-location",
       builder: (context, state) => const EditLocationPage()),
   GoRoute(
-      path: "/other-location",
-      builder: (context, state) => const OtherLocationPage()),
+      path: "/other-location/:username",
+      builder: (context, state) =>
+          OtherLocationPage(username: state.pathParameters['username']!)),
 ]);

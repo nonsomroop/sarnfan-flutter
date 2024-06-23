@@ -10,10 +10,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class OtherProfilePage extends StatefulWidget {
   final String username;
-  const OtherProfilePage({
-    super.key,
-     required this.username
-  });
+  const OtherProfilePage({super.key, required this.username});
 
   @override
   State<OtherProfilePage> createState() => _OtherProfilePageState();
@@ -177,24 +174,24 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                     ]),
               ),
               const SizedBox(height: 120),
-              const ProfileItem(
+              ProfileItem(
                   text: "Description",
                   icon: Icons.description_outlined,
-                  path: "/my-description"),
+                  path: "/other-description/${userData?.username ?? ""}"),
               const SizedBox(
                 height: 15,
               ),
-              const ProfileItem(
+               ProfileItem(
                   text: "Location",
                   icon: Icons.location_on_outlined,
-                  path: "/my-location"),
+                  path: "/other-location/${userData?.username ?? ""}"),
               const SizedBox(
                 height: 15,
               ),
               const ProfileItem(
                   text: "History",
                   icon: Icons.history_rounded,
-                  path: "/my-history"),
+                  path: "/other-history"),
               const SizedBox(
                 height: 30,
               ),

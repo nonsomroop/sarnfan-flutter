@@ -1,19 +1,62 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:sarnfan/models/user.dart';
+import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
-class OtherDescriptionPage extends StatelessWidget {
-  final String userId;
-  const OtherDescriptionPage({super.key, required this.userId});
+class OtherDescriptionPage extends StatefulWidget {
+  final String username;
+  const OtherDescriptionPage({super.key, required this.username});
 
-  
+  @override
+  State<OtherDescriptionPage> createState() => _OtherDescriptionPageState();
+}
+
+class _OtherDescriptionPageState extends State<OtherDescriptionPage> {
+  User? userData;
+  bool _isLoading = true;
+  Future<void> getOtherUser() async {
+    try {
+      var response = await ApiService.post("/other/user", {
+        "username": widget.username,
+      });
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data.isNotEmpty) {
+          setState(() {
+            userData = User.fromJson(data);
+            _isLoading = false;
+          });
+        }
+        return;
+      } else {
+        print('Failed to load user: ${response.statusCode}');
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Error loading user: $e');
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOtherUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          padding: const EdgeInsets.only(left: 20),
           icon: const Icon(
             Icons.arrow_back,
             color: AppColors.neu50,
@@ -34,7 +77,6 @@ class OtherDescriptionPage extends StatelessWidget {
             WhiteSurface(
               minHeight: MediaQuery.of(context).size.height - 80,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                       padding: const EdgeInsets.only(
@@ -51,8 +93,7 @@ class OtherDescriptionPage extends StatelessWidget {
                       )),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consequat mauris egestas ex interdum fermentum et eu tortor. Aliquam eu tristique sapien, vitae rutrum diam. Aliquam quis ipsum ex. Sed mauris arcu, rhoncus sed iaculis quis, consequat in sapien. Vivamus nibh ligula, iaculis quis molestie vel, pretium in mi. Mauris id orci eget sem efficitur commodo. Phasellus et magna in dui eleifend lobortis ac gravida elit. Cras consectetur, quam malesuada gravida consectetur, ante risus dictum ligula, at egestas sapien orci ut metus. Sed non euismod est. Sed magna dolor, convallis sit amet leo id, fermentum luctus risus. Curabitur malesuada ornare ultricies. Mauris dolor ipsum, pulvinar nec lorem sed, interdum tempor mauris. Aliquam erat volutpat.",
+                    child: Text(userData?.description ?? "No description yet",
                         style: Theme.of(context).textTheme.bodyMedium),
                   )
                 ],
