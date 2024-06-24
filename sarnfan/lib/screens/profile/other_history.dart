@@ -55,6 +55,7 @@ class OtherHistoryPage extends StatelessWidget {
                   child: Column(children: [
                     PostCard(
                         id: 123,
+                        picture: "assets/images/school.png",
                         title: "hello",
                         content: "asfl;asfjaslfj;afk;afja",
                         date: "safaf",

@@ -9,6 +9,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:sarnfan/models/post_detail.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
+import 'package:sarnfan/widgets/circular_loader.dart';
 import 'package:sarnfan/widgets/profile_card.dart';
 import 'package:sarnfan/widgets/report_post.dart';
 import 'package:sarnfan/widgets/tag.dart';
@@ -98,12 +99,18 @@ class _PostDetailPageState extends State<PostDetailPage> {
               Positioned(
                 child: SizedBox(
                   height: 250,
-                  child: Image(
-                    image: _image == null
-                        ? AssetImage("assets/images/school.png")
-                        : NetworkImage(ApiService.serverImage("/posts/$_image" ?? "")),
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  child: Skeletonizer(
+                    enabled: _isLoading,
+                    child: Image.network(
+                      ApiService.serverImage("/posts/$_image"),
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Image(
+                        image: AssetImage("assets/images/school.png"),
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),

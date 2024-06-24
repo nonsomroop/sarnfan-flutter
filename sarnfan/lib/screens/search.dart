@@ -253,6 +253,10 @@ class _SearchPageState extends State<SearchPage> {
                                 const EdgeInsets.only(left: 20.0, right: 20),
                             child: PostCard(
                                 id: post.id,
+                                isLoading: _isLoading,
+                                picture: post.images?.isNotEmpty == true
+                                    ? post.images![0]["link"]
+                                    : "",
                                 title: post.title,
                                 content: post.content,
                                 date: post.createdDate,
