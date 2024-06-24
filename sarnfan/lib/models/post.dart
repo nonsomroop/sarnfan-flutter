@@ -9,6 +9,7 @@ class Post {
   final double? latitude;
   final double? longitude;
   final List<PostTag> tags;
+  final List<dynamic>? images;
 
   const Post({
     required this.id,
@@ -16,22 +17,23 @@ class Post {
     required this.content,
     required this.createdDate,
     required this.tags,
+    this.images,
     this.latitude,
     this.longitude,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      id: json['id'],
-      title: json['title'],
-      content: json['content'],
-      createdDate: json['created_date'],
-      latitude: json['latitude']?.toDouble(),
-      longitude: json['longitude']?.toDouble(),
-      tags: (json['Post_Tag'] as List<dynamic>)
-          .map((tagJson) => PostTag.fromJson(tagJson))
-          .toList(),
-    );
+        id: json['id'],
+        title: json['title'],
+        content: json['content'],
+        createdDate: json['created_date'],
+        latitude: json['latitude']?.toDouble(),
+        longitude: json['longitude']?.toDouble(),
+        tags: (json['Post_Tag'] as List<dynamic>)
+            .map((tagJson) => PostTag.fromJson(tagJson))
+            .toList(),
+        images: (json['Post_Image'] as List<dynamic>));
   }
 }
 
@@ -44,6 +46,7 @@ class OtherPost extends Post {
       required super.content,
       required super.createdDate,
       required super.tags,
+      required super.images,
       super.latitude,
       super.longitude,
       required this.owner});
@@ -59,6 +62,7 @@ class OtherPost extends Post {
       tags: (json['Post_Tag'] as List<dynamic>)
           .map((tagJson) => PostTag.fromJson(tagJson))
           .toList(),
+      images: (json['Post_Image'] as List<dynamic>),
       owner: User.fromJson(json['User']),
     );
   }

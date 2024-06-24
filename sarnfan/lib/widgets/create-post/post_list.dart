@@ -69,6 +69,7 @@ class _PostListState extends State<PostList> {
           children: postList.map((post) {
             return PostCard(
               id: post.id,
+              picture: post.images?[0]["link"] ?? "",
               title: post.title,
               content: post.content,
               date: post.createdDate,

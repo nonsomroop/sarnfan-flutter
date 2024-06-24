@@ -160,6 +160,11 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         child: PostCard(
                                           id: post.id,
+                                          isLoading: _isLoading,
+                                          picture:
+                                              post.images?.isNotEmpty == true
+                                                  ? post.images![0]["link"]
+                                                  : "",
                                           title: post.title,
                                           content: post.content,
                                           date: post.createdDate,
