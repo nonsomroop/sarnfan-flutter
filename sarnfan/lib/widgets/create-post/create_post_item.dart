@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sarnfan/themes/color_theme.dart';
+import 'package:sarnfan/widgets/cancel_box.dart';
 
 class CreatePostItem extends StatefulWidget {
   final String text;
@@ -55,6 +56,7 @@ class _CreatePostItemState extends State<CreatePostItem> {
       _currentWebPhoto = null;
     });
     widget.onImageUpdated(null, null);
+    setState(() {});
   }
 
   @override
@@ -82,32 +84,50 @@ class _CreatePostItemState extends State<CreatePostItem> {
                     title: const Text("Upload photo"),
                     backgroundColor: AppColors.neu100,
                     contentPadding: const EdgeInsets.all(20),
-                    content: GestureDetector(
-                      onTap: () async {
-                        await _pickImage();
-                        widget.onImageUpdated(_currentPhoto, _currentWebPhoto);
-                        setState(() {});
-                      },
-                      child: Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: AppColors.neu200,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                          child: _currentPhoto != null
-                              ? Image.file(_currentPhoto!, fit: BoxFit.cover)
-                              : _currentWebPhoto != null
-                                  ? Image.memory(_currentWebPhoto!,
-                                      fit: BoxFit.cover)
-                                  : const Icon(
+                    content: _currentPhoto != null
+                        ? Stack(children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Image.file(_currentPhoto!,
+                                    fit: BoxFit.cover)),
+                            CancelBox(function: () {
+                              _removeImage();
+                              setState(() {});
+                            })
+                          ])
+                        : _currentWebPhoto != null
+                            ? Stack(children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Image.memory(_currentWebPhoto!,
+                                        fit: BoxFit.cover)),
+                                CancelBox(function: () {
+                                  _removeImage();
+                                  setState(() {});
+                                })
+                              ])
+                            : GestureDetector(
+                                onTap: () async {
+                                  await _pickImage();
+                                  widget.onImageUpdated(
+                                      _currentPhoto, _currentWebPhoto);
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.neu200,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: const Center(
+                                    child: Icon(
                                       Icons.upload_file,
                                       size: 50,
                                       color: Colors.grey,
                                     ),
-                        ),
-                      ),
-                    ));
+                                  ),
+                                ),
+                              ));
               });
             },
           );

@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
@@ -67,12 +67,30 @@ class _CreatePostPageState extends State<CreatePostPage> {
           "longitude": location.longitude,
           "address": ""
         };
-        final response = await ApiService.post("/user/createpost", data);
-        if (response.statusCode == 201) {
+        Response response;
+        if (_photo != null || _webPhoto != null) {
+          print("Condition here");
+          Map<String, String> stringData = {
+            "title": data["title"].toString(),
+            "content": data["content"].toString(),
+            "region": data["region"].toString(),
+            "activity": data["activity"].toString(),
+            "end_date": data["end_date"].toString(),
+            "latitude": data["latitude"].toString(),
+            "longitude": data["longitude"].toString(),
+            "address": data["address"].toString()
+          };
+          response = await ApiService.uploadImagePost(
+              "/upload/post-image", _webPhoto!, stringData);
+        } else {
+          response = await ApiService.post("/user/createpost", data);
+        }
+        if (response.statusCode == 201 || response.statusCode == 200) {
           print('Data sent successfully!');
+          print(response.body);
           if (!mounted) return;
           context.go("/home");
-          if (response.statusCode != 201) {
+          if (response.statusCode != 201 || response.statusCode != 200) {
             print(response.body);
           }
           print(data);

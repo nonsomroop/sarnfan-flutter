@@ -83,6 +83,7 @@ class ApiService {
     return "$backendUrl/pic/$path";
   }
 
+
   static Future<http.Response> uploadImageProfilePic(
       String path, Uint8List imageBytes) async {
     final token = await _getToken();
@@ -101,6 +102,43 @@ class ApiService {
       length,
       filename: 'profile_pic.png',
     ));
+
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        print('Image uploaded successfully');
+      } else {
+        print('Failed to upload image: ${response.statusCode}');
+      }
+      return response;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return http.Response('Error uploading image', 500);
+    }
+  }
+
+  static Future<http.Response> uploadImagePost(
+      String path, Uint8List imageBytes, Map<String, String> bodyData) async {
+    final token = await _getToken();
+    var request = http.MultipartRequest('POST', Uri.parse("$backendUrl$path"));
+
+    request.headers.addAll({
+      'Authorization': 'Bearer $token',
+    });
+
+    var stream = http.ByteStream.fromBytes(imageBytes);
+    var length = imageBytes.length;
+
+    request.fields.addAll(bodyData);
+    request.files.add(http.MultipartFile(
+      'postImage',
+      stream,
+      length,
+      filename: 'post.png',
+    ));
+
 
     try {
       var streamedResponse = await request.send();

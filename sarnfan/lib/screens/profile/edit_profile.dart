@@ -98,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         appBar: AppBar(
             leading: IconButton(
                 onPressed: () {
-                  context.pop(context);
+                  context.go("/my-profile");
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,
@@ -256,3 +256,4 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ));
   }
 }
+
