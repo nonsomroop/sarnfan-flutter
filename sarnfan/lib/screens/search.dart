@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/models/post.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
@@ -110,7 +111,7 @@ class _SearchPageState extends State<SearchPage> {
             // padding: const EdgeInsets.only(left: 20),
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              context.go("/home");
             },
           ),
           title: Text('Search',

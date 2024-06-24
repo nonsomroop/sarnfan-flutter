@@ -27,6 +27,7 @@ class PostDetailPage extends StatefulWidget {
 
 class _PostDetailPageState extends State<PostDetailPage> {
   PostDetail? post;
+  String? _image;
   bool _isLoading = true;
   bool _isStar = false;
 
@@ -36,12 +37,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         var favourites = data['Favourite'] as List<dynamic>;
+        var images = data["Post_Image"] as List<dynamic>;
         if (data != null) {
           setState(() {
             post = PostDetail.fromJson(data, favourites.isNotEmpty);
             _isLoading = false;
-            _isStar =
-                favourites.isNotEmpty; // Update _isStar based on favourites
+            _isStar = favourites.isNotEmpty;
+            _image = images[0]["link"];
           });
         }
         return;
@@ -97,7 +99,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 child: SizedBox(
                   height: 250,
                   child: Image(
-                    image: AssetImage("assets/images/school.png"),
+                    image: _image == null
+                        ? AssetImage("assets/images/school.png")
+                        : NetworkImage(ApiService.serverImage("/posts/$_image" ?? "")),
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),

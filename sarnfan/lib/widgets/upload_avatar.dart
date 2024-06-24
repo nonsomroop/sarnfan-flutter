@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -25,10 +26,9 @@ class _UploadAvatarState extends State<UploadAvatar> {
       if (kIsWeb) {
         _webImage = await pickedFile.readAsBytes();
       } else {
-        setState(() {
-          _image = File(pickedFile.path);
-        });
+        _image = File(pickedFile.path);
       }
+      setState(() {});
       await _uploadImage();
     }
   }
@@ -37,7 +37,7 @@ class _UploadAvatarState extends State<UploadAvatar> {
     try {
       if (kIsWeb) {
         print('Uploading web image');
-        await ApiService.uploadImageProfilePic(
+        var response = await ApiService.uploadImageProfilePic(
             "/upload/profile-pic", _webImage!);
       } else {
         print('Uploading mobile image: ${_image!.path}');
