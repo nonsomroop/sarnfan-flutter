@@ -9,17 +9,18 @@ class CustomTextInput extends StatefulWidget {
   final bool obscureText;
   final bool emptyValidator;
   final FormFieldValidator<String>? validator;
+  final int? maxLines;
 
-  const CustomTextInput({
-    super.key,
-    required this.title,
-    required this.placeholder,
-    required this.titleColor,
-    this.controller,
-    this.obscureText = false,
-    this.emptyValidator = false,
-    this.validator,
-  });
+  const CustomTextInput(
+      {super.key,
+      required this.title,
+      required this.placeholder,
+      required this.titleColor,
+      this.controller,
+      this.obscureText = false,
+      this.emptyValidator = false,
+      this.validator,
+      this.maxLines = 1});
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -46,6 +47,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
         ),
         obscureText: widget.obscureText,
         controller: widget.controller,
+        maxLines: widget.maxLines,
         validator: (value) {
           if (widget.emptyValidator && (value == null || value.isEmpty)) {
             return 'Please enter ${widget.title.toLowerCase()}';

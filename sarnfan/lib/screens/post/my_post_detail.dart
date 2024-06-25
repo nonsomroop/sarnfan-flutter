@@ -27,7 +27,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                 child: SizedBox(
                   height: 250,
                   child: Image(
-                    image: AssetImage("assets/images/school.png"),
+                    image: AssetImage("assets/images/logo_grey.png"),
                     // height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -118,7 +118,7 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
                                 borderRadius: BorderRadius.circular(30),
                                 image: const DecorationImage(
                                   image: AssetImage(
-                                    "assets/images/school.png",
+                                    "assets/images/logo_grey.png",
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -175,9 +175,6 @@ class _MyPostDetailPageState extends State<MyPostDetailPage> {
               ),
             ],
           ),
-          // WhiteSurface(
-          //     child: Column(),
-          //     minHeight: MediaQuery.of(context).size.height - 200),
         ],
       ),
     ));

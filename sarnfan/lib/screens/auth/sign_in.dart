@@ -26,13 +26,20 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
+  bool _isLoading = false;
+
   Future<void> _sendData() async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
       final data = {
         "email": _emailController.text,
         "password": _passwordController.text
       };
       final response = await ApiService.post("/auth/signin", data);
+      await Future.delayed(
+          const Duration(seconds: 1)); // Simulate a network delay
       if (response.statusCode == 200) {
         print('Data sent successfully!');
         final dynamic responseData =
@@ -50,6 +57,10 @@ class _SignInPageState extends State<SignInPage> {
       }
     } catch (e) {
       print(e);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -92,11 +103,8 @@ class _SignInPageState extends State<SignInPage> {
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: _passwordController,
-                            
                             decoration: const InputDecoration(
-                              labelText: 'Password',
-                              hintText: "**********"
-                            ),
+                                labelText: 'Password', hintText: "**********"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your password';
@@ -107,24 +115,37 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           const SizedBox(height: 100),
                           ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                print("Send data");
-                                _sendData();
-                              }
-                            },
+                            onPressed: _isLoading
+                                ? null
+                                : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      print("Send data");
+                                      _sendData();
+                                    }
+                                  },
                             style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(
                                     AppColors.pri500),
                                 minimumSize: WidgetStateProperty.all<Size>(
                                     const Size(double.infinity, 50))),
-                            child: const Text('Sign in'),
+                            child: _isLoading
+                                ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          AppColors.neu50),
+                                    ),
+                                  )
+                                : const Text('Sign in'),
                           ),
                           const SizedBox(height: 15),
                           TextButton(
-                              onPressed: () {
-                                context.go("/signup");
-                              },
+                              onPressed: _isLoading
+                                  ? null
+                                  : () {
+                                      context.go("/signup");
+                                    },
                               child: const Text(
                                 "Don't have an account? Sign up",
                                 style: TextStyle(color: AppColors.neu600),

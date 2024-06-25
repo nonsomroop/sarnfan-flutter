@@ -101,10 +101,12 @@ class _PostDetailPageState extends State<PostDetailPage> {
                       ApiService.serverImage("/posts/$_image"),
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const Image(
-                        image: AssetImage("assets/images/school.png"),
+                      errorBuilder: (context, error, stackTrace) => Container(
                         width: double.infinity,
-                        fit: BoxFit.cover,
+                        child: const Image(
+                          image: AssetImage("assets/images/pattern.png"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

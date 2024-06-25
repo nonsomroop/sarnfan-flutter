@@ -60,10 +60,13 @@ class _PostCardState extends State<PostCard> {
                       ApiService.serverImage("posts/${widget.picture}"),
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const Image(
-                        image: AssetImage("assets/images/school.png"),
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Image(
+                          image: AssetImage("assets/images/logo_grey.png"),
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
