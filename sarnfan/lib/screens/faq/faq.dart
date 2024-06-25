@@ -24,8 +24,8 @@ class FAQPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               FAQItem(path: "/what-is-sarnfan", text: "What is SarnFan?"),
-              FAQItem(path: "faq/how-to-use", text: "How to use?"),
-              FAQItem(path: "faq/how-to-verify", text: "How to get verified?"),
+              FAQItem(path: "/how-to-use", text: "How to use?"),
+              FAQItem(path: "/how-to-get-verified", text: "How to get verified?"),
             ],
           ),
           const SizedBox(
