@@ -9,6 +9,7 @@ import 'package:sarnfan/widgets/green_surface.dart';
 import 'package:sarnfan/widgets/profile_item.dart';
 import 'package:sarnfan/widgets/signout_modal.dart';
 import 'package:sarnfan/widgets/user_type.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
@@ -20,6 +21,7 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   static final backendUrl =
       dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
+
   @override
   Widget build(BuildContext context) {
     final appProvider = Provider.of<AppProvider>(context);
@@ -58,101 +60,111 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              height: 120,
-                              width: 120,
-                              child: ClipOval(
-                                child: Image.network(
-                                  appProvider.picture != null
-                                      ? "$backendUrl/pic/profiles/${appProvider.picture}"
-                                      : "assets/images/profile.png",
-                                  fit: BoxFit
-                                      .cover, // Ensures the image covers the entire circle
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image.asset(
-                                      "assets/images/profile.png",
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text(
-                                  appProvider.username ?? "",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(color: AppColors.neu50),
-                                ))
+                            Skeletonizer(
+                                enabled: appProvider.isLoading,
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  height: 120,
+                                  width: 120,
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      appProvider.picture != null
+                                          ? "$backendUrl/pic/profiles/${appProvider.picture}"
+                                          : "assets/images/profile.png",
+                                      fit: BoxFit
+                                          .cover, // Ensures the image covers the entire circle
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.asset(
+                                          "assets/images/profile.png",
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )),
+                            Skeletonizer(
+                                enabled: appProvider.isLoading,
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      appProvider.username ?? "username",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(color: AppColors.neu50),
+                                    )))
                           ],
                         )),
                     Positioned(
-                      bottom: -100,
-                      child: Container(
-                        // width: double.infinity,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        height: 150,
-                        decoration: BoxDecoration(
-                            color: AppColors.neu50,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              UserType(type: appProvider.type ?? ""),
-                              Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  spacing: 5,
-                                  children: [
-                                    const Icon(
-                                      Icons.mail_outline_rounded,
-                                      color: AppColors.neu900,
-                                      size: 20,
-                                    ),
-                                    Text(appProvider.email ?? "",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge),
-                                  ]),
-                              Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  spacing: 5,
-                                  children: [
-                                    const Icon(
-                                      Icons.phone_outlined,
-                                      color: AppColors.neu900,
-                                      size: 20,
-                                    ),
-                                    Text(appProvider.phone ?? "-",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge),
-                                  ]),
-                              Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  spacing: 5,
-                                  children: [
-                                    const Icon(
-                                      Icons.person_outline_rounded,
-                                      color: AppColors.neu900,
-                                      size: 20,
-                                    ),
-                                    Text(appProvider.social ?? "-",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge),
-                                  ]),
-                            ],
+                        bottom: -100,
+                        child: Skeletonizer(
+                          enabled: appProvider.isLoading,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                color: AppColors.neu50,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  UserType(type: appProvider.type ?? "ind"),
+                                  Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      spacing: 5,
+                                      children: [
+                                        const Icon(
+                                          Icons.mail_outline_rounded,
+                                          color: AppColors.neu900,
+                                          size: 20,
+                                        ),
+                                        Text(appProvider.email ?? "user@gmail.com",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge),
+                                      ]),
+                                  Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      spacing: 5,
+                                      children: [
+                                        const Icon(
+                                          Icons.phone_outlined,
+                                          color: AppColors.neu900,
+                                          size: 20,
+                                        ),
+                                        Text(appProvider.phone ?? "0000000000",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge),
+                                      ]),
+                                  Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      spacing: 5,
+                                      children: [
+                                        const Icon(
+                                          Icons.person_outline_rounded,
+                                          color: AppColors.neu900,
+                                          size: 20,
+                                        ),
+                                        Text(appProvider.social ?? "0000000000",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge),
+                                      ]),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    )
+                        ))
                   ]),
               const SizedBox(height: 120),
               const ProfileItem(

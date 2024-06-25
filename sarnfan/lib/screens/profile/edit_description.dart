@@ -58,9 +58,8 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
         TextEditingController(text: appProvider.description);
   }
 
+  @override
   Widget build(BuildContext context) {
-    final appProvider = Provider.of<AppProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -69,7 +68,7 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
         ),
         titleSpacing: 10,
@@ -96,6 +95,7 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
                       child: WhiteSurface(
                         minHeight: MediaQuery.of(context).size.height - 80,
                         child: Form(
+                          key: _formKey,
                           child: Column(
                             children: [
                               Padding(

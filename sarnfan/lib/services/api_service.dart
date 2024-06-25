@@ -83,7 +83,6 @@ class ApiService {
     return "$backendUrl/pic/$path";
   }
 
-
   static Future<http.Response> uploadImageProfilePic(
       String path, Uint8List imageBytes) async {
     final token = await _getToken();
@@ -138,7 +137,6 @@ class ApiService {
       length,
       filename: 'post.png',
     ));
-
 
     try {
       var streamedResponse = await request.send();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/models/user.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
@@ -63,7 +64,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                context.pop(context);
               },
               icon: const Icon(
                 Icons.arrow_back_rounded,
@@ -111,7 +112,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                               Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Text(
-                                    userData?.username ?? "-",
+                                    userData?.username ?? "username",
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineSmall
@@ -133,7 +134,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                UserType(type: userData?.type ?? ""),
+                                UserType(type: userData?.type ?? "ind"),
                                 Wrap(
                                     crossAxisAlignment:
                                         WrapCrossAlignment.center,
@@ -144,7 +145,9 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                                         color: AppColors.neu900,
                                         size: 20,
                                       ),
-                                      Text(userData?.email ?? "-",
+                                      Text(
+                                          userData?.email ??
+                                              "username@email.com",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge),
@@ -159,7 +162,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                                         color: AppColors.neu900,
                                         size: 20,
                                       ),
-                                      Text(userData?.phone ?? "-",
+                                      Text(userData?.phone ?? "0000000000",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge),
@@ -174,7 +177,7 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
                                         color: AppColors.neu900,
                                         size: 20,
                                       ),
-                                      Text(userData?.social ?? "-",
+                                      Text(userData?.social ?? "0000000000",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge),
@@ -201,10 +204,10 @@ class _OtherProfilePageState extends State<OtherProfilePage> {
               const SizedBox(
                 height: 15,
               ),
-              const ProfileItem(
+              ProfileItem(
                   text: "History",
                   icon: Icons.history_rounded,
-                  path: "/other-history"),
+                  path: "/other-history/${userData?.username ?? ""}"),
               const SizedBox(
                 height: 30,
               ),

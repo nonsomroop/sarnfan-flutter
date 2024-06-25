@@ -53,9 +53,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
   ];
 
   DateTime selectedDate = DateTime.now();
+  bool _isLoading = false;
 
   Future<void> _createPost() async {
     if (_formKey.currentState?.validate() ?? false) {
+      setState(() {
+        _isLoading = true;
+      });
       try {
         final data = {
           "title": _postTitleController.text,
@@ -97,6 +101,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
         }
       } catch (e) {
         print(e);
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -169,7 +177,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.pri500,
       appBar: AppBar(
@@ -183,18 +190,28 @@ class _CreatePostPageState extends State<CreatePostPage> {
               )),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    _createPost();
-                  },
-                  style: ButtonStyle(
-                      fixedSize:
-                          WidgetStateProperty.all<Size>(const Size(110, 35)),
-                      backgroundColor:
-                          WidgetStateProperty.all<Color>(AppColors.pri700)),
-                  child: const Text("Post")),
-            )
+                padding: const EdgeInsets.only(right: 15.0),
+                child: ElevatedButton(
+                    onPressed: _isLoading
+                        ? null
+                        : _createPost, // Disable button when loading
+                    style: ButtonStyle(
+                        fixedSize:
+                            WidgetStateProperty.all<Size>(const Size(110, 35)),
+                        backgroundColor: _isLoading
+                            ? WidgetStateProperty.all<Color>(
+                                const Color.fromARGB(255, 71, 120, 127))
+                            : WidgetStateProperty.all<Color>(AppColors.pri700)),
+                    child: _isLoading
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.neu50),
+                            ),
+                          )
+                        : const Text("Post")))
           ],
           titleSpacing: 10,
           title: Text(
@@ -235,10 +252,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           padding: const EdgeInsets.only(top: 15, bottom: 10),
                           child: CustomTextInput(
                             title: "Description",
-                            placeholder: "e.g. amount of people, conditions",
+                            placeholder:
+                                "e.g. details, amount of people, conditions",
                             titleColor: AppColors.neu700,
                             controller: _postDescriptionController,
                             emptyValidator: true,
+                            maxLines: 5,
                           ),
                         ),
                         Padding(
@@ -261,7 +280,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               location: location,
                               onLocationChange: updateLocation,
                             )),
-
                         Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 10),
                             child: Column(
@@ -287,15 +305,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                         ..text = selectedDate
                                             .toString()
                                             .substring(0, 10),
-                                      // readOnly: true,
                                     ),
                                   ),
                                 ),
                               ],
-                            ) /*  */),
-
-                        //  child:Text("Select end date", style: Theme.of(context).textTheme.bodyMedium?.copyWith(color:AppColors.neu900),),
-
+                            )),
                         Padding(
                             padding: const EdgeInsets.only(top: 15, bottom: 10),
                             child: Text(

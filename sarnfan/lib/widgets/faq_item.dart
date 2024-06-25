@@ -13,7 +13,7 @@ class FAQItem extends StatelessWidget {
       padding: const EdgeInsets.only(left: 50, right: 50, top: 20, bottom: 20),
       child: ElevatedButton(
         onPressed: () {
-          context.go(path);
+          context.push(path);
         },
         style: ButtonStyle(
           fixedSize:

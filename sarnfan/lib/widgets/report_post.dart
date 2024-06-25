@@ -7,14 +7,16 @@ import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
 
 class ReportPost extends StatefulWidget {
-  const ReportPost({super.key});
+  final num post;
+
+  const ReportPost({super.key, required this.post});
 
   @override
   State<ReportPost> createState() => _ReportPostState();
 }
 
 class _ReportPostState extends State<ReportPost> {
-  TextEditingController _reportController = TextEditingController();
+  final TextEditingController _reportController = TextEditingController();
   @override
   void dispose() {
     _reportController.dispose();
@@ -23,10 +25,8 @@ class _ReportPostState extends State<ReportPost> {
 
   Future<void> _submitReportData() async {
     try {
-      final data = {
-        "report": _reportController.text,
-      };
-      final response = await ApiService.patch("/user/updateDescription", data);
+      final data = {"report": _reportController.text, "post_id": widget.post};
+      final response = await ApiService.post("/user/report", data);
       if (response.statusCode == 200) {
         print('Report sent successfully!');
         final dynamic responseData = jsonDecode(response.body);
@@ -36,7 +36,7 @@ class _ReportPostState extends State<ReportPost> {
         Provider.of<AppProvider>(context, listen: false).init();
       } else {
         print('Status data: ${response.statusCode}');
-        if (response.statusCode != 201) {
+        if (response.statusCode != 200) {
           print(response.body);
         }
       }

@@ -48,7 +48,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         content: Text(message),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => context.pop(context),
             child: const Text('OK'),
           ),
         ],

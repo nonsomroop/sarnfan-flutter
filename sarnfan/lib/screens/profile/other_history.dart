@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/post_card.dart';
+import 'package:sarnfan/widgets/create-post/post_list.dart';
 import 'package:sarnfan/widgets/white_surface.dart';
 
 class OtherHistoryPage extends StatelessWidget {
-  const OtherHistoryPage({super.key});
+  final String? username;
+  const OtherHistoryPage({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class OtherHistoryPage extends StatelessWidget {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
         ),
         backgroundColor: AppColors.pri500,
@@ -50,16 +52,13 @@ class OtherHistoryPage extends StatelessWidget {
             ),
             WhiteSurface(
                 minHeight: MediaQuery.of(context).size.height - 146,
-                child: const Padding(
-                  padding: EdgeInsets.all(20.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(children: [
-                    PostCard(
-                        id: 123,
-                        picture: "assets/images/school.png",
-                        title: "hello",
-                        content: "asfl;asfjaslfj;afk;afja",
-                        date: "safaf",
-                        tags: [])
+                    PostList(
+                      queryKey: "other-history",
+                      queryData: username ?? "",
+                    )
                   ]),
                 ))
           ],

@@ -37,7 +37,8 @@ class _HomePageState extends State<HomePage> {
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
         if (data.isEmpty) {
-          return print("No data");
+          _isLoading = false;
+          print("No data");
         }
         setState(() {
           postList = data.map((postJson) => Post.fromJson(postJson)).toList();
@@ -153,25 +154,46 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: _isLoading == true
                                   ? const [PostLoad(), PostLoad(), PostLoad()]
-                                  : (postList.map((post) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          context.go("/post-detail/${post.id}");
-                                        },
-                                        child: PostCard(
-                                          id: post.id,
-                                          isLoading: _isLoading,
-                                          picture:
-                                              post.images?.isNotEmpty == true
-                                                  ? post.images![0]["link"]
-                                                  : "",
-                                          title: post.title,
-                                          content: post.content,
-                                          date: post.createdDate,
-                                          tags: post.tags,
-                                        ),
-                                      );
-                                    }).toList()),
+                                  : postList.isEmpty
+                                      ? [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 20.0,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "No post found",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.neu700),
+                                              ),
+                                            ),
+                                          )
+                                        ]
+                                      : (postList.map((post) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              context.go(
+                                                  "/post-detail/${post.id}");
+                                            },
+                                            child: PostCard(
+                                              id: post.id,
+                                              isLoading: _isLoading,
+                                              picture:
+                                                  post.images?.isNotEmpty ==
+                                                          true
+                                                      ? post.images![0]["link"]
+                                                      : "",
+                                              title: post.title,
+                                              content: post.content,
+                                              date: post.createdDate,
+                                              tags: post.tags,
+                                            ),
+                                          );
+                                        }).toList()),
                             ),
                           ),
                         ),

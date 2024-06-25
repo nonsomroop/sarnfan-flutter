@@ -117,7 +117,7 @@ class _EditLocationPageState extends State<EditLocationPage> {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
         ),
         title: Text("Edit Location",
