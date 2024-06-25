@@ -8,6 +8,7 @@ import 'package:sarnfan/screens/faq/how_to_get_verified.dart';
 import 'package:sarnfan/screens/faq/how_to_use.dart';
 import 'package:sarnfan/screens/faq/what_is_sarnfan.dart';
 import 'package:sarnfan/screens/home.dart';
+import 'package:sarnfan/screens/loading.dart';
 import 'package:sarnfan/screens/post/create_post.dart';
 import 'package:sarnfan/screens/post/my_post_detail.dart';
 import 'package:sarnfan/screens/post/post_detail.dart';
@@ -24,13 +25,16 @@ import 'package:sarnfan/screens/profile/other_location.dart';
 import 'package:sarnfan/screens/profile/other_profile.dart';
 import 'package:sarnfan/screens/search.dart';
 import 'package:sarnfan/screens/starred.dart';
-import 'package:sarnfan/screens/test.dart';
 
 final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
     path: "/",
     builder: (context, state) {
       final provider = Provider.of<AppProvider>(context);
+      provider.init();
+      if (provider.isLoading) {
+        return const LoadingScreen();
+      }
       if (provider.isLoggedIn) {
         return const HomePage();
       } else {
@@ -91,8 +95,9 @@ final GoRouter router = GoRouter(initialLocation: "/", routes: <RouteBase>[
   GoRoute(
       path: "/my-history", builder: (context, state) => const MyHistoryPage()),
   GoRoute(
-      path: "/other-history",
-      builder: (context, state) => const OtherHistoryPage()),
+      path: "/other-history/:username",
+      builder: (context, state) =>
+          OtherHistoryPage(username: state.pathParameters['username']!)),
   GoRoute(
       path: "/my-location",
       builder: (context, state) => const MyLocationPage()),

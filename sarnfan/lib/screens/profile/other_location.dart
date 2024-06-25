@@ -75,7 +75,7 @@ class _OtherLocationPageState extends State<OtherLocationPage> {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
         ),
         backgroundColor: AppColors.pri500,
@@ -102,7 +102,6 @@ class _OtherLocationPageState extends State<OtherLocationPage> {
                                   .textTheme
                                   .titleLarge
                                   ?.copyWith(color: AppColors.pri500)),
-                         
                         ],
                       )),
                   // Padding(

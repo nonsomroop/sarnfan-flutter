@@ -10,11 +10,11 @@ class AppProvider extends ChangeNotifier {
   String? _type;
   String? _phone;
   String? _social;
-  // String? _location;
   String? _description;
   double? _latitude;
   double? _longitude;
   bool _isLoggedIn = false;
+  bool _isLoading = true;
 
   String? get picture => _picture;
   String? get username => _username;
@@ -23,10 +23,10 @@ class AppProvider extends ChangeNotifier {
   String? get phone => _phone;
   String? get social => _social;
   String? get description => _description;
-  // String? get location => _location;
   double? get latitude => _latitude;
   double? get longitude => _longitude;
   bool get isLoggedIn => _isLoggedIn;
+  bool get isLoading => _isLoading;
 
   Future<void> init() async {
     _isLoggedIn = await ApiService.checkToken();
@@ -43,11 +43,10 @@ class AppProvider extends ChangeNotifier {
           _phone = userData["phone"];
           _social = userData["social"];
           _description = userData["description"];
-
-          // _location = userData["location"];
           _latitude = userData["latitude"];
           _longitude = userData["longitude"];
           _picture = userData["picture"];
+          _isLoading = false;
           notifyListeners();
         } else {
           print("Failed to fetch user data: ${response.statusCode}");
@@ -55,6 +54,9 @@ class AppProvider extends ChangeNotifier {
       } catch (e) {
         print("Error fetching user data: $e");
       }
+    } else {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
@@ -64,7 +66,6 @@ class AppProvider extends ChangeNotifier {
     _type = null;
     _phone = null;
     _social = null;
-    // _location = null;
     _latitude = null;
     _longitude = null;
     _isLoggedIn = false;

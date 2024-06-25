@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:sarnfan/models/post_tag.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/circular_loader.dart';
 import 'package:sarnfan/widgets/tag.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -34,7 +33,7 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go("/post-detail/${widget.id}");
+        context.push("/post-detail/${widget.id}");
       },
       child: Skeletonizer(
         enabled: widget.isLoading,
@@ -58,7 +57,7 @@ class _PostCardState extends State<PostCard> {
                   child: Skeletonizer(
                     enabled: widget.isLoading,
                     child: Image.network(
-                      ApiService.serverImage("/posts/${widget.picture}"),
+                      ApiService.serverImage("posts/${widget.picture}"),
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => const Image(
@@ -102,7 +101,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                   Text(
-                    widget.date,
+                    widget.date.substring(0, 10),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: AppColors.neu600,
                         ),

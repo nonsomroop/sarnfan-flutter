@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sarnfan/models/user.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
@@ -62,7 +63,7 @@ class _OtherDescriptionPageState extends State<OtherDescriptionPage> {
             color: AppColors.neu50,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
         ),
         backgroundColor: AppColors.pri500,

@@ -1,15 +1,12 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:sarnfan/models/post_detail.dart';
 import 'package:sarnfan/services/api_service.dart';
 import 'package:sarnfan/themes/color_theme.dart';
-import 'package:sarnfan/widgets/circular_loader.dart';
 import 'package:sarnfan/widgets/profile_card.dart';
 import 'package:sarnfan/widgets/report_post.dart';
 import 'package:sarnfan/widgets/tag.dart';
@@ -70,7 +67,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
       var response = await ApiService.post("/user/star", data);
       if (response.statusCode == 200) {
         setState(() {
-          _isStar = !_isStar; // Toggle _isStar state
+          _isStar = !_isStar;
         });
       }
     } catch (e) {
@@ -84,8 +81,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
     getPostDetail();
   }
 
-  static final backendUrl =
-      dotenv.env["BACKEND_URL"] ?? "http://localhost:4000";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +95,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 child: SizedBox(
                   height: 250,
                   child: Skeletonizer(
+                    containersColor: AppColors.green,
                     enabled: _isLoading,
                     child: Image.network(
                       ApiService.serverImage("/posts/$_image"),
@@ -119,9 +115,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      context.pop(context);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_rounded,
                       color: AppColors.neu50,
                     ),
@@ -130,7 +126,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               ),
               Column(
                 children: [
-                  SizedBox(height: 200),
+                  const SizedBox(height: 200),
                   WhiteSurface(
                       minHeight: MediaQuery.of(context).size.height - 200,
                       child: Padding(
@@ -160,10 +156,11 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                           showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
-                                                return ReportPost();
+                                                return ReportPost(
+                                                    post: post?.id ?? -1);
                                               });
                                         },
-                                        icon: Icon(Icons.report),
+                                        icon: const Icon(Icons.report),
                                       ),
                                       IconButton(
                                         onPressed: starClick,
@@ -221,7 +218,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 20, bottom: 10),
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 10),
                                 child: Text(
                                   "Location",
                                   style: Theme.of(context)
@@ -238,11 +236,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                   border: Border.all(color: AppColors.neu200),
                                 ),
                                 clipBehavior: Clip.antiAlias,
-                                child:
-                                    // _isLoading
-                                    //     ? const CircularLoader()
-                                    //     :
-                                    FlutterMap(
+                                child: FlutterMap(
                                   options: MapOptions(
                                     initialCenter: LatLng(post?.latitude ?? 0,
                                         post?.longitude ?? 0),
@@ -258,7 +252,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                       Marker(
                                           point: LatLng(post?.latitude ?? 0,
                                               post?.longitude ?? 0),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.location_on_rounded,
                                             color: AppColors.red500,
                                           ))

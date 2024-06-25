@@ -169,7 +169,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.pri500,
       appBar: AppBar(

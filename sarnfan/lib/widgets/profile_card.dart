@@ -32,7 +32,7 @@ class ProfileCard extends StatelessWidget {
           overlayColor: WidgetStatePropertyAll<Color>(AppColors.neu200),
         ),
         onPressed: () {
-          context.go("/other-profile/$username");
+          context.push("/other-profile/$username");
         },
         child: Padding(
           padding: const EdgeInsets.only(bottom: 5, top: 5),
