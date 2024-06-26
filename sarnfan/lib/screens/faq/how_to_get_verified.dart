@@ -28,7 +28,7 @@ class HowToGetVerified extends StatelessWidget {
               ?.copyWith(color: AppColors.neu50),
         ),
       ),
-      bottomNavigationBar: const BottomNav(path: "/how-to-use"),
+      bottomNavigationBar: const BottomNav(path: "/how-to-get-verified"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -36,17 +36,23 @@ class HowToGetVerified extends StatelessWidget {
             children: [
               EasyFaq(
                 question: "Why Verification is Important",
-                answer: "Purpose: Explain the purpose of verification and its benefits, such as increased trust, better visibility, and access to additional features.\n\nTrust: Emphasize that verification helps build trust within the community, ensuring that requests and campaigns are legitimate."
+                questionTextStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.neu900),
+                answer: "Purpose: Explain the purpose of verification and its benefits, such as increased trust, better visibility, and access to additional features.\n\nTrust: Emphasize that verification helps build trust within the community, ensuring that requests and campaigns are legitimate.",
+                anserTextStyle: const TextStyle(fontSize: 14),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 14),
               EasyFaq(
                 question: "Required Information and Documents",
+                questionTextStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.neu900),
                 answer: "Personal Information: Detail the personal information required, such as full name, email address, phone number, and profile picture.\n\nDocumentation: Specify the types of documents needed for verification (e.g., government-issued ID, proof of address, organizational affiliation).\n\nOrganizational Verification: If applicable, outline the additional documents needed for organizations (e.g., registration certificate, tax identification number).",
+                anserTextStyle: const TextStyle(fontSize: 14),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 14),
               EasyFaq(
                 question: "Step-by-Step Verification Process", 
-                answer: "Profile Completion: Instruct users to ensure their profile is complete with up-to-date information.\n\nSubmit Request: Explain how to submit a verification request, including where to upload documents and how to fill out the verification form.\n\nReview Process: Provide an overview of the review process, including how long it typically takes and who will review the documents.\n\nNotification: Inform users how they will be notified about the status of their verification request (e.g., email)."
+                questionTextStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.neu900),
+                answer: "Profile Completion: Instruct users to ensure their profile is complete with up-to-date information.\n\nSubmit Request: Explain how to submit a verification request, including where to upload documents and how to fill out the verification form.\n\nReview Process: Provide an overview of the review process, including how long it typically takes and who will review the documents.\n\nNotification: Inform users how they will be notified about the status of their verification request (e.g., email).",
+                anserTextStyle: const TextStyle(fontSize: 14),
               ),  
             ],
           ),
