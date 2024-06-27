@@ -73,10 +73,10 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Sign in",
-                      style: Theme.of(context).textTheme.headlineSmall),
+                  Text("SarnFan",
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: AppColors.pri600)),
                   const Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 50),
+                    padding: EdgeInsets.only(top: 10, bottom: 50),
                     child: Image(
                         image: AssetImage('assets/images/logo_gradient.png'),
                         width: 120,

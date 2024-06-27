@@ -115,13 +115,19 @@ class _PostDetailPageState extends State<PostDetailPage> {
               Positioned(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                    onPressed: () {
-                      context.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_rounded,
-                      color: AppColors.neu50,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: AppColors.pri500,
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        context.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: AppColors.neu50,
+                      ),
                     ),
                   ),
                 ),
