@@ -27,11 +27,13 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   bool _isLoading = false;
+  String? _errorMessage;
 
   Future<void> _sendData() async {
     try {
       setState(() {
         _isLoading = true;
+        _errorMessage = null;
       });
       final data = {
         "email": _emailController.text,
@@ -49,6 +51,11 @@ class _SignInPageState extends State<SignInPage> {
         if (!mounted) return;
         Provider.of<AppProvider>(context, listen: false).init();
         context.go("/");
+      } else if (response.statusCode == 400) {
+        final dynamic responseData = jsonDecode(response.body);
+        setState(() {
+          _errorMessage = responseData['message'] ?? 'Invalid credentials';
+        });
       } else {
         print('Status data: ${response.statusCode}');
         if (response.statusCode != 201) {
@@ -74,7 +81,10 @@ class _SignInPageState extends State<SignInPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("SarnFan",
-                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: AppColors.pri600)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(color: AppColors.pri600)),
                   const Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 50),
                     child: Image(
@@ -113,6 +123,21 @@ class _SignInPageState extends State<SignInPage> {
                             },
                             obscureText: true,
                           ),
+                          if (_errorMessage != null) ...[
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                _errorMessage!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      color: AppColors.red500,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
                           const SizedBox(height: 100),
                           ElevatedButton(
                             onPressed: _isLoading

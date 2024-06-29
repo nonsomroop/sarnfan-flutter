@@ -32,11 +32,16 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
+  bool _isLoading = false;
+
   Future<void> _sendData() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final data = {
         "username": _usernameController.text,
-        "email": _emailController.text,
+        "email": _emailController.text.toLowerCase(),
         "phone": _phoneController.text,
         "social": _socialController.text,
         "password": _passwordController.text
@@ -52,6 +57,10 @@ class _SignUpPageState extends State<SignUpPage> {
       }
     } catch (e) {
       print(e);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -98,6 +107,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your email';
+                            }
+                            final emailRegExp = RegExp(
+                                r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                            if (!emailRegExp.hasMatch(value)) {
+                              return 'Please enter a valid email';
                             }
                             return null;
                           },
@@ -153,10 +167,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             labelText: 'Confirm Password',
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty ) {
+                            if (value == null || value.isEmpty) {
                               return 'Please enter your password';
-                            }
-                            else if (value != _passwordController.text) {
+                            } else if (value != _passwordController.text) {
                               return 'Passwords do not match';
                             }
                             return null;
@@ -165,18 +178,29 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         const SizedBox(height: 50),
                         ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              print("Send data");
-                              _sendData();
-                            }
-                          },
+                          onPressed: _isLoading
+                              ? null
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    print("Send data");
+                                    _sendData();
+                                  }
+                                },
                           style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all<Color>(
                                   AppColors.pri500),
                               minimumSize: WidgetStateProperty.all<Size>(
                                   const Size(double.infinity, 50))),
-                          child: const Text('Sign up'),
+                          child: _isLoading
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        AppColors.neu50),
+                                  ),
+                                )
+                              : const Text('Sign up'),
                         ),
                         const SizedBox(height: 15),
                         TextButton(
