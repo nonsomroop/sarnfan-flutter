@@ -121,7 +121,9 @@ class _EditDescriptionPageState extends State<EditDescriptionPage> {
                                   maxLines: null,
                                   keyboardType: TextInputType.multiline,
                                   controller: _descriptionController,
+                                  maxLength:250,
                                   decoration: InputDecoration(
+                                    
                                       hintText: "Enter your description here",
                                       hintStyle: Theme.of(context)
                                           .textTheme
