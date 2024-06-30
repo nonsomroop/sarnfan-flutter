@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
     'Southern'
   ];
   var typeValue = 'All';
-  var types = ['All', 'school', 'campaign', 'ind'];
+  var types = ['All', 'school', 'org', 'ind'];
   final TextEditingController _searchController = TextEditingController();
   List<Post> filteredPostList = [];
 
@@ -144,7 +144,7 @@ class _SearchPageState extends State<SearchPage> {
                           children: types.map((type) {
                             final typeFormat = type == 'school'
                                 ? 'School'
-                                : type == 'campaign'
+                                : type == 'org'
                                     ? 'Campaign'
                                     : type == 'ind'
                                         ? 'Individual'

@@ -6,8 +6,10 @@ class PostDetail {
   final String title;
   final String content;
   final String createdDate;
+  final String? endDate;
   final double? latitude;
   final double? longitude;
+
   final Owner owner;
   final bool star;
   final List<PostTag> tags;
@@ -17,6 +19,7 @@ class PostDetail {
     required this.title,
     required this.content,
     required this.createdDate,
+    this.endDate,
     required this.owner,
     required this.tags,
     required this.star,
@@ -32,6 +35,7 @@ class PostDetail {
       title: json['title'],
       content: json['content'],
       createdDate: json['created_date'],
+      endDate: json['end_date'],
       latitude: json['latitude']?.toDouble(),
       longitude: json['longitude']?.toDouble(),
       owner: Owner.fromJson(ownerJson),

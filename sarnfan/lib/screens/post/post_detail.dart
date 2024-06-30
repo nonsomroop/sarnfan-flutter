@@ -185,20 +185,37 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                   ),
                                 ],
                               ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 15),
-                                  child: Text(
-                                    formatDateTime(post?.createdDate ?? ""),
-                                    textAlign: TextAlign.start,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: AppColors.neu600),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 15),
+                                    child: Text(
+                                      formatDateTime(post?.endDate ?? "") != ""
+                                          ? "End Date: ${formatDateTime(post?.endDate ?? "").substring(0, 10)}"
+                                          : "",
+                                      textAlign: TextAlign.start,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(color: AppColors.pri600),
+                                    ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 15),
+                                    child: Text(
+                                      formatDateTime(post?.createdDate ?? ""),
+                                      textAlign: TextAlign.start,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(color: AppColors.neu600),
+                                    ),
+                                  ),
+                                ],
                               ),
                               ProfileCard(
                                 picture: post?.owner.picture ?? "",
