@@ -66,10 +66,12 @@ While platforms like GoFundMe focus on monetary donations, SarnFan goes beyond b
 ```bash
 git clone https://github.com/nonsomroop/sarnfan-flutter.git
 cd sarnfan
+flutter pub get
 flutter run
 ```
 ### 2. Run Backend ([Backend repository](https://github.com/nonsomroop/sarnfan-backend.git))
 ```bash
 git clone https://github.com/nonsomroop/sarnfan-backend.git
+npm install
 npm run dev
 ```
